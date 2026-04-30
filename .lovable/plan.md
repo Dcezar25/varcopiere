@@ -1,73 +1,49 @@
-# Implementation Plan
+## Changes
 
-Six focused changes across the navbar, footer, contact, testimonials, procedures section, and gallery page.
+### 1. Contact Section (`src/components/site/Contact.tsx`)
 
-## 1. Navbar — "Socials" dropdown next to "Programare"
+**Phone number typography** — Currently the two phone numbers use `font-serif` (Fraunces), which makes them stand out from the rest of the site. Update both `PhoneNumber` instances:
 
-In `src/components/site/Navbar.tsx`:
-- Add a new `Socials` button immediately to the **left** of the existing `Programare` button (same `hidden lg:flex` cluster), so the order becomes: nav links → Socials → Programare.
-- Build the dropdown using shadcn's `DropdownMenu` (already installed at `src/components/ui/dropdown-menu.tsx`) for accessibility + keyboard nav + click-outside out of the box.
-- Trigger: ghost-style button with label "Socials" + small chevron, matching the existing pill/rounded button language.
-- Menu content styled for glassmorphism: `bg-background/70 backdrop-blur-xl border border-border/60 shadow-elegant rounded-xl`, with `data-[state=open]:animate-in fade-in-0 zoom-in-95 slide-in-from-top-2` (Radix data-state animations already supported by shadcn defaults).
-- Three items, each an `<a target="_blank" rel="noopener noreferrer">` with a brand SVG icon (16–18px) on the left and label on the right, padded generously, hover `bg-secondary/60` and slight `translate-x-0.5` motion:
-  - Facebook → `https://www.facebook.com/DrChirurgORLMarinVOICA/`
-  - Instagram → `https://www.instagram.com/dr.marin_voica?igsh=MWxpdm94eXBmYXl2dw==`
-  - TikTok → `https://www.tiktok.com/@drmarinvoica?_r=1&_t=ZN-95ycR3VUULe`
-- Mobile menu (the existing collapsible panel): add the same three social links as a horizontal icon row below the "Programare" button so mobile users get them too.
+- Remove `font-serif` from the `className`
+- Keep size/weight tuning (e.g. `text-xl font-medium tracking-tight`) so they inherit the global Inter font like the rest of the UI
+- Apply to both "Sună pentru intervenție" (0722.307.818) and "Sună pentru programare" (0721.173.670)
 
-### Brand icons
-Lucide doesn't ship Instagram/TikTok marks reliably for all versions; create a tiny shared component `src/components/site/SocialIcons.tsx` exporting clean inline SVGs (`FacebookIcon`, `InstagramIcon`, `TikTokIcon`) plus a `SOCIAL_LINKS` array reused by Navbar and Footer, so links live in one place.
+**Hide "Sună acum" buttons on desktop** — Both `<Button asChild size="sm" variant="outline">` "Sună acum" buttons currently use `hidden sm:inline-flex` (visible from tablet up). Invert the visibility so they show only on mobile/small tablet:
 
-## 2. Footer — social icons row
+- Replace `hidden sm:inline-flex` with `inline-flex md:hidden` (visible below `md` breakpoint, hidden on desktop/tablet-landscape).
 
-In `src/components/site/Footer.tsx`:
-- Convert the current 3-column grid into a layout that still fits the brand block, the "Powered by" line, and the copyright, then add a centered icon row directly under the brand block on mobile and aligned to the right column on `md+`.
-- Render the three icons from `SOCIAL_LINKS` as 36px circular buttons with `border-primary-foreground/15`, `text-primary-foreground/70`, hover `text-primary-foreground bg-primary-foreground/10` with a subtle 200ms transition. `aria-label` per platform.
+### 2. Gallery — Scroll to Top on Navigation (`src/pages/Gallery.tsx`)
 
-## 3. Contact section — two phone CTAs
+The "Deschide galeria foto" button in `ProcedureDetails.tsx` is a `<Link to="/galerie">`. React Router preserves the previous scroll position, which is why the user lands at the bottom. Fix by ensuring the Gallery page scrolls to the top on mount:
 
-In `src/components/site/Contact.tsx`:
-- Replace the single Telefon card with **two stacked phone cards**, sharing the existing card styling but with stronger hierarchy:
-  1. **"Sună pentru intervenție"** — uses the `gradient-primary` icon badge (kept prominent), eyebrow label "Urgențe & intervenții", number `0722.307.818` rendered with `<PhoneNumber>` in `font-serif text-xl text-primary`. Add a small `Button` (size sm, rounded-full) "Sună acum" that links `tel:0722307818` — visible on all viewports, since on desktop the `<PhoneNumber>` is non-tappable.
-  2. **"Sună pentru programare"** — uses the lighter `bg-secondary` icon badge, eyebrow "Programări consultații", number `0721.173.670` (`tel:0721173670`), same "Sună acum" button.
-- Keep the existing Program (hours), Locație (map), and WhatsApp CTA blocks unchanged below.
+- In `Gallery.tsx`, add a `useEffect(() => { window.scrollTo({ top: 0, behavior: "auto" }); }, [])` near the top of the component (alongside the existing title/meta effect, or merged into it).
+- This is a targeted fix for the Gallery page only and doesn't risk breaking any in-app smooth-scroll-to-anchor flows.
 
-## 4. Testimonials — "Lasă o recenzie" CTAs
+### 3. Navbar — Mobile/Tablet 3-Slot Layout (`src/components/site/Navbar.tsx`)
 
-In `src/components/site/Testimonials.tsx`, after the carousel and its arrows, add a centered CTA block:
-- Eyebrow: "— Părerea ta contează"
-- Heading-style line: "Ai fost pacientul nostru? Lasă o recenzie."
-- Two buttons side-by-side (stack on mobile), elegant and restrained on the dark section:
-  - **Google** → `https://share.google/XWJTgxcAIRYyZugsb` — solid light pill (`bg-primary-foreground text-primary hover:bg-primary-foreground/90`), generous padding (`px-7 h-12 rounded-full`), Google "G" mark + "Lasă o recenzie pe Google".
-  - **Facebook** → `https://www.facebook.com/DrChirurgORLMarinVOICA/` — outline pill on dark (`border border-primary-foreground/25 text-primary-foreground hover:bg-primary-foreground/10`), Facebook "f" mark + "Lasă o recenzie pe Facebook".
-- Both `target="_blank" rel="noopener noreferrer"`, with the existing hover `-translate-y-0.5 shadow-soft` motif.
+Currently the mobile/tablet navbar shows only **logo (left)** and **hamburger (right)**. Restructure to a balanced 3-slot layout: **logo (left) — Programare CTA (center) — hamburger (right)**, with equal spacing and perfect vertical alignment.
 
-## 5. Procedures CTA — fix anchor scroll target
+Implementation:
 
-The button "Apasă pentru mai mulți clienți fericiți" in `src/components/site/Procedures.tsx` currently uses `<Link to="/proceduri">`, which on the new page leaves you at the top hero (above the procedure list) — but the user reports it lands at the bottom, which happens because `Index` may have been at a deep scroll position; React Router doesn't reset scroll on route change here.
+- Change the outer flex container of the mobile bar from `justify-between` semantics to a 3-column CSS grid for screens below `lg`: `grid grid-cols-3 items-center` on mobile/tablet, switching back to the current flex layout at `lg` (where the full desktop nav is shown).
+- Slots:
+  - **Left** — existing logo (`Dr. Marin Voica`), with `justify-self-start`. On very small screens hide the "ORL" subscript (already hidden on `<sm`) so the logo column doesn't overflow.
+  - **Center** — a compact "Programare" pill button (reuse `<Button size="sm" className="rounded-full px-4 h-9">`), `justify-self-center`. Visible only `lg:hidden`. Tapping it triggers the existing `goToSection("contact")`.
+  - **Right** — existing hamburger button, `justify-self-end`, `lg:hidden`.
+- Keep the desktop layout (`lg:` and up) unchanged: logo left, nav links center-ish, Socials + Programare right.
+- Verify vertical alignment: all three children use `items-center` on the grid; button heights tuned so they sit on the same baseline as the logo at `h-20` bar height.
 
-Fix:
-- Change the link to `<Link to="/proceduri#proceduri-detaliu">`.
-- In `src/pages/ProcedureDetails.tsx`, give the section that wraps the procedure articles (line 231 `<section className="py-20 lg:py-28">`) the id `proceduri-detaliu` and `scroll-mt-24` (so the fixed navbar doesn't cover the heading).
-- Add a small `useEffect` in `ProcedureDetails` that, on mount, reads `location.hash` and calls `document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" })` after a `requestAnimationFrame`. If no hash, `window.scrollTo({ top: 0 })`. This guarantees smooth scrolling to "Proceduri în detaliu" instead of landing at the bottom.
+The mobile sheet (full menu panel) below stays as-is — it already contains social icons and a larger "Programare" button for the expanded state.
 
-## 6. Gallery — Apple-style premium carousel
+## Technical Notes
 
-Replace the masonry grid in `src/pages/Gallery.tsx` with an Embla-based slider (already in deps via `@/components/ui/carousel`).
+- `Contact.tsx`: only className changes on existing JSX nodes — no structural edits.
+- `Gallery.tsx`: a single extra effect; safe because the page is a route entry and always mounts fresh on navigation from `/proceduri`.
+- `Navbar.tsx`: only the top-level row of the header changes. The dropdown menu, scroll-handling, and mobile sheet logic stay intact. The new center "Programare" button reuses existing handlers.
+- No new dependencies, no design-token changes (`index.css`/Tailwind config untouched).
 
-Behavior (Apple-like):
-- One large image per "page", centered, with peek of the next/previous slide on `md+` (basis ~`80%`, on `lg` ~`70%`); on mobile basis `100%`.
-- Embla options: `{ align: "center", loop: true, dragFree: false, containScroll: "trimSnaps", duration: 28 }` — `duration: 28` gives that slow, weighted Apple transition; snap is automatic, swipe is fluid.
-- Each slide: rounded-2xl card with `aspect-[4/5]`, `object-cover`, subtle `shadow-elegant`, scale + opacity fade for non-selected slides (`transition-all duration-500`, inactive → `scale-95 opacity-60`) driven by Embla's `selectedScrollSnap` + `slidesInView` (tracked in state).
-- Controls:
-  - Discrete dot pagination centered below the carousel — small dots (`h-1.5 w-1.5` inactive, active `w-6 bg-primary` rounded-full) with smooth width transitions; clicking jumps to slide.
-  - Minimal arrow buttons (Lucide `ChevronLeft`/`ChevronRight`) absolutely positioned at left/right edges on `md+`, hidden on mobile (swipe only). Glass styling: `bg-background/70 backdrop-blur border border-border/60`.
-- Tapping/clicking a slide opens the existing fullscreen lightbox modal (keep the current `openIndex` modal logic; just trigger it from the active slide).
-- Keep the page header and the lightbox unchanged. Remove the `columns-*` masonry block.
+## Files Touched
 
-### Technical notes
-
-- New file: `src/components/site/SocialIcons.tsx` — exports `FacebookIcon`, `InstagramIcon`, `TikTokIcon` (inline SVGs, `currentColor`, sized via `className`) and `SOCIAL_LINKS` constant.
-- Edited files: `Navbar.tsx`, `Footer.tsx`, `Contact.tsx`, `Testimonials.tsx`, `Procedures.tsx`, `ProcedureDetails.tsx`, `Gallery.tsx`.
-- No new dependencies — Embla, Radix dropdown, and Lucide are already installed.
-- All external links use `target="_blank" rel="noopener noreferrer"`. Phone links use `<PhoneNumber>` so desktop stays non-tappable but mobile gets `tel:` behavior; explicit "Sună acum" buttons provide a tappable affordance everywhere.
+- `src/components/site/Contact.tsx`
+- `src/pages/Gallery.tsx`
+- `src/components/site/Navbar.tsx`

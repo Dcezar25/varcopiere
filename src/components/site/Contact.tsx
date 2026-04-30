@@ -51,14 +51,14 @@ export const Contact = () => {
                   <PhoneNumber
                     number="0722.307.818"
                     tel="0722307818"
-                    className="block font-serif text-xl text-primary mt-1 tracking-tight"
+                    className="block text-xl font-medium text-primary mt-1 tracking-tight"
                   />
                 </div>
                 <Button
                   asChild
                   size="sm"
                   variant="outline"
-                  className="rounded-full self-center hidden sm:inline-flex"
+                  className="rounded-full self-center inline-flex md:hidden"
                 >
                   <a href="tel:0722307818" aria-label="Sună la 0722307818">
                     Sună acum
@@ -80,14 +80,14 @@ export const Contact = () => {
                   <PhoneNumber
                     number="0721.173.670"
                     tel="0721173670"
-                    className="block font-serif text-xl text-primary mt-1 tracking-tight"
+                    className="block text-xl font-medium text-primary mt-1 tracking-tight"
                   />
                 </div>
                 <Button
                   asChild
                   size="sm"
                   variant="outline"
-                  className="rounded-full self-center hidden sm:inline-flex"
+                  className="rounded-full self-center inline-flex md:hidden"
                 >
                   <a href="tel:0721173670" aria-label="Sună la 0721173670">
                     Sună acum
