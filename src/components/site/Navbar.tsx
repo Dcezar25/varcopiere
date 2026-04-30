@@ -1,0 +1,135 @@
+import { useEffect, useRef, useState } from "react";
+import { Button } from "@/components/ui/button";
+
+const links = [
+  { href: "#despre", label: "Despre" },
+  { href: "#proceduri", label: "Proceduri" },
+  { href: "#experienta", label: "Experiență" },
+  { href: "#pacienti", label: "Pacienți" },
+  { href: "#contact", label: "Contact" },
+];
+
+export const Navbar = () => {
+  const [scrolled, setScrolled] = useState(false);
+  const [open, setOpen] = useState(false);
+  const openScrollY = useRef<number | null>(null);
+
+  useEffect(() => {
+    const onScroll = () => {
+      setScrolled(window.scrollY > 12);
+      if (
+        open &&
+        openScrollY.current !== null &&
+        Math.abs(window.scrollY - openScrollY.current) > 20
+      ) {
+        setOpen(false);
+      }
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [open]);
+
+  useEffect(() => {
+    if (open) {
+      openScrollY.current = window.scrollY;
+    } else {
+      openScrollY.current = null;
+    }
+  }, [open]);
+
+  return (
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        scrolled
+          ? "bg-background/85 backdrop-blur-xl border-b border-border/60"
+          : "bg-transparent"
+      }`}
+    >
+      <div className="container flex items-center justify-between h-20">
+        <a href="#top" className="flex items-baseline gap-2 group">
+          <span className="font-serif text-2xl font-medium text-primary tracking-tight">
+            Dr. Marin Voica
+          </span>
+          <span className="hidden sm:inline text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
+            ORL
+          </span>
+        </a>
+
+        <nav className="hidden md:flex items-center gap-8">
+          {links.map((l) => (
+            <a
+              key={l.href}
+              href={l.href}
+              className="text-sm text-foreground/75 hover:text-primary transition-colors"
+            >
+              {l.label}
+            </a>
+          ))}
+        </nav>
+
+        <div className="hidden md:flex items-center gap-3">
+          <Button asChild size="sm" className="rounded-full px-5">
+            <a href="#contact">Programare</a>
+          </Button>
+        </div>
+
+        <button
+          aria-label="Meniu"
+          aria-expanded={open}
+          className="md:hidden relative w-10 h-10 flex items-center justify-center text-primary"
+          onClick={() => setOpen((o) => !o)}
+        >
+          <span className="relative w-6 h-6 block">
+            <span
+              className={`absolute left-0 top-1/2 h-0.5 w-6 bg-current rounded-full transition-all duration-300 ease-out ${
+                open ? "rotate-45 translate-y-0" : "-translate-y-2"
+              }`}
+            />
+            <span
+              className={`absolute left-0 top-1/2 h-0.5 w-6 bg-current rounded-full transition-all duration-200 ease-out ${
+                open ? "opacity-0 scale-x-0" : "opacity-100 scale-x-100"
+              }`}
+            />
+            <span
+              className={`absolute left-0 top-1/2 h-0.5 w-6 bg-current rounded-full transition-all duration-300 ease-out ${
+                open ? "-rotate-45 translate-y-0" : "translate-y-2"
+              }`}
+            />
+          </span>
+        </button>
+      </div>
+
+      <div
+        className={`md:hidden overflow-hidden bg-background/95 backdrop-blur-xl border-b border-border/60 transition-[max-height,opacity] duration-500 ease-out ${
+          open ? "max-h-[480px] opacity-100 border-t" : "max-h-0 opacity-0"
+        }`}
+      >
+        <div className="container py-6 flex flex-col gap-4">
+          {links.map((l, i) => (
+            <a
+              key={l.href}
+              href={l.href}
+              onClick={() => setOpen(false)}
+              style={{ transitionDelay: open ? `${80 + i * 60}ms` : "0ms" }}
+              className={`text-base text-foreground/80 hover:text-primary transform transition-all duration-300 ease-out ${
+                open ? "translate-x-0 opacity-100" : "-translate-x-4 opacity-0"
+              }`}
+            >
+              {l.label}
+            </a>
+          ))}
+          <Button
+            asChild
+            className={`rounded-full mt-2 transform transition-all duration-300 ease-out ${
+              open ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0"
+            }`}
+            style={{ transitionDelay: open ? `${80 + links.length * 60}ms` : "0ms" }}
+          >
+            <a href="#contact" onClick={() => setOpen(false)}>Programare</a>
+          </Button>
+        </div>
+      </div>
+    </header>
+  );
+};
