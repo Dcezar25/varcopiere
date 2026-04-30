@@ -1,6 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { SOCIAL_LINKS } from "./SocialIcons";
 
 const links = [
   { hash: "despre", label: "Despre" },
@@ -115,6 +123,38 @@ export const Navbar = () => {
         </nav>
 
         <div className="hidden lg:flex items-center gap-3 pl-2">
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <button
+                type="button"
+                className="inline-flex items-center gap-1.5 h-9 px-4 rounded-full text-sm text-foreground/80 hover:text-primary border border-border/60 bg-background/40 backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:shadow-soft hover:border-primary/30"
+              >
+                Socials
+                <ChevronDown className="w-3.5 h-3.5 transition-transform duration-300 data-[state=open]:rotate-180" />
+              </button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent
+              align="end"
+              sideOffset={10}
+              className="min-w-[200px] rounded-xl border-border/60 bg-background/75 backdrop-blur-xl shadow-elegant p-1.5"
+            >
+              {SOCIAL_LINKS.map(({ platform, label, href, Icon }) => (
+                <DropdownMenuItem key={platform} asChild>
+                  <a
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-3 px-3 py-2.5 rounded-lg cursor-pointer text-sm text-foreground/85 hover:text-primary focus:text-primary transition-all duration-300 hover:bg-secondary/60 focus:bg-secondary/60 hover:translate-x-0.5"
+                  >
+                    <span className="w-7 h-7 rounded-md bg-secondary/60 text-primary flex items-center justify-center">
+                      <Icon className="w-3.5 h-3.5" />
+                    </span>
+                    {label}
+                  </a>
+                </DropdownMenuItem>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
           <Button
             size="sm"
             onClick={() => goToSection("contact")}
@@ -152,7 +192,7 @@ export const Navbar = () => {
 
       <div
         className={`lg:hidden overflow-hidden bg-background/95 backdrop-blur-xl border-b border-border/60 transition-[max-height,opacity] duration-500 ease-out ${
-          open ? "max-h-[480px] opacity-100 border-t" : "max-h-0 opacity-0"
+          open ? "max-h-[560px] opacity-100 border-t" : "max-h-0 opacity-0"
         }`}
       >
         <div className="container py-6 flex flex-col gap-4">
@@ -178,6 +218,25 @@ export const Navbar = () => {
           >
             Programare
           </Button>
+          <div
+            className={`flex items-center gap-3 pt-2 transform transition-all duration-300 ease-out ${
+              open ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0"
+            }`}
+            style={{ transitionDelay: open ? `${80 + (links.length + 1) * 60}ms` : "0ms" }}
+          >
+            {SOCIAL_LINKS.map(({ platform, href, Icon }) => (
+              <a
+                key={platform}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={platform}
+                className="w-10 h-10 rounded-full border border-border/60 text-foreground/70 hover:text-primary hover:border-primary/40 hover:bg-secondary/60 flex items-center justify-center transition-all duration-300"
+              >
+                <Icon className="w-4 h-4" />
+              </a>
+            ))}
+          </div>
         </div>
       </div>
     </header>

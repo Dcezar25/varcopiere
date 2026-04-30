@@ -1,8 +1,14 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowLeft, X, ChevronLeft, ChevronRight, Trash2 } from "lucide-react";
+import { ArrowLeft, X, ChevronLeft, ChevronRight } from "lucide-react";
 import { Navbar } from "@/components/site/Navbar";
 import { Footer } from "@/components/site/Footer";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  type CarouselApi,
+} from "@/components/ui/carousel";
 import beforeImg from "@/assets/before-after-before.jpg";
 import afterImg from "@/assets/before-after-after.jpg";
 
@@ -10,7 +16,6 @@ type Photo = {
   id: string;
   src: string;
   alt: string;
-  removable?: boolean;
 };
 
 const seedSources = [beforeImg, afterImg];
@@ -21,8 +26,10 @@ const initialPhotos: Photo[] = Array.from({ length: 16 }, (_, i) => ({
 }));
 
 const Gallery = () => {
-  const [photos, setPhotos] = useState<Photo[]>(initialPhotos);
+  const [photos] = useState<Photo[]>(initialPhotos);
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const [api, setApi] = useState<CarouselApi>();
+  const [selected, setSelected] = useState(0);
 
   useEffect(() => {
     const prevTitle = document.title;
@@ -42,6 +49,18 @@ const Gallery = () => {
   }, []);
 
   useEffect(() => {
+    if (!api) return;
+    const onSelect = () => setSelected(api.selectedScrollSnap());
+    onSelect();
+    api.on("select", onSelect);
+    api.on("reInit", onSelect);
+    return () => {
+      api.off("select", onSelect);
+      api.off("reInit", onSelect);
+    };
+  }, [api]);
+
+  useEffect(() => {
     if (openIndex === null) return;
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") setOpenIndex(null);
@@ -59,11 +78,6 @@ const Gallery = () => {
       document.body.style.overflow = "";
     };
   }, [openIndex, photos.length]);
-
-  const removePhoto = (id: string) => {
-    setPhotos((p) => p.filter((ph) => ph.id !== id));
-    setOpenIndex(null);
-  };
 
   return (
     <main className="min-h-screen bg-background">
@@ -85,44 +99,107 @@ const Gallery = () => {
             Rezultate <span className="italic">reale</span>, povestite în imagini.
           </h1>
           <p className="mt-6 text-lg text-muted-foreground max-w-2xl leading-relaxed">
-            Apasă pe orice imagine pentru a o vedea în detaliu.
+            Glisează pentru a explora. Apasă pe imagine pentru detalii.
           </p>
         </div>
       </section>
 
       <section className="py-12 lg:py-20">
-        <div className="container max-w-6xl">
+        <div className="container max-w-7xl">
           {photos.length === 0 ? (
             <div className="text-center py-24 text-muted-foreground">
-              Nu există imagini în galerie. Apasă „Încarcă imagini” pentru a adăuga.
+              Nu există imagini în galerie.
             </div>
           ) : (
-            <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 sm:gap-5 [column-fill:_balance]">
-              {photos.map((photo, idx) => (
-                <button
-                  key={photo.id}
-                  type="button"
-                  onClick={() => setOpenIndex(idx)}
-                  aria-label={`Deschide imaginea ${idx + 1}`}
-                  className="group relative mb-4 sm:mb-5 w-full break-inside-avoid overflow-hidden rounded-2xl border border-border/60 bg-card shadow-soft hover:shadow-elegant transition-all duration-500 hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 block"
-                >
-                  <img
-                    src={photo.src}
-                    alt={photo.alt}
-                    loading="lazy"
-                    className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-[1.03]"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-primary/85 via-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                  <div className="absolute bottom-0 left-0 right-0 p-4 text-left translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
-                    <div className="text-[10px] uppercase tracking-[0.22em] text-primary-foreground/80">
-                      Click pentru detalii
-                    </div>
-                    <div className="font-serif text-base text-primary-foreground mt-1">
-                      Before &amp; After
-                    </div>
-                  </div>
-                </button>
-              ))}
+            <div className="relative">
+              <Carousel
+                setApi={setApi}
+                opts={{
+                  align: "center",
+                  loop: true,
+                  duration: 28,
+                  containScroll: "trimSnaps",
+                }}
+              >
+                <CarouselContent className="-ml-4">
+                  {photos.map((photo, idx) => {
+                    const isActive = idx === selected;
+                    return (
+                      <CarouselItem
+                        key={photo.id}
+                        className="pl-4 basis-full md:basis-[80%] lg:basis-[65%] xl:basis-[55%]"
+                      >
+                        <button
+                          type="button"
+                          onClick={() => setOpenIndex(idx)}
+                          aria-label={`Deschide imaginea ${idx + 1}`}
+                          className={`group relative block w-full overflow-hidden rounded-2xl border border-border/60 bg-card shadow-soft transition-all duration-500 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${
+                            isActive
+                              ? "scale-100 opacity-100 shadow-elegant"
+                              : "scale-95 opacity-60"
+                          }`}
+                        >
+                          <div className="aspect-[4/5] w-full overflow-hidden">
+                            <img
+                              src={photo.src}
+                              alt={photo.alt}
+                              loading="lazy"
+                              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                            />
+                          </div>
+                          <div className="absolute inset-0 bg-gradient-to-t from-primary/85 via-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                          <div className="absolute bottom-0 left-0 right-0 p-5 text-left translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
+                            <div className="text-[10px] uppercase tracking-[0.22em] text-primary-foreground/80">
+                              Click pentru detalii
+                            </div>
+                            <div className="font-serif text-lg text-primary-foreground mt-1">
+                              Before &amp; After
+                            </div>
+                          </div>
+                        </button>
+                      </CarouselItem>
+                    );
+                  })}
+                </CarouselContent>
+              </Carousel>
+
+              {/* Arrows (desktop) */}
+              <button
+                type="button"
+                onClick={() => api?.scrollPrev()}
+                aria-label="Imaginea anterioară"
+                className="hidden md:flex absolute left-2 lg:left-6 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-background/70 backdrop-blur border border-border/60 text-primary items-center justify-center transition-all duration-300 hover:bg-background hover:-translate-y-[calc(50%+2px)] hover:shadow-soft"
+              >
+                <ChevronLeft className="w-5 h-5" />
+              </button>
+              <button
+                type="button"
+                onClick={() => api?.scrollNext()}
+                aria-label="Imaginea următoare"
+                className="hidden md:flex absolute right-2 lg:right-6 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-background/70 backdrop-blur border border-border/60 text-primary items-center justify-center transition-all duration-300 hover:bg-background hover:-translate-y-[calc(50%+2px)] hover:shadow-soft"
+              >
+                <ChevronRight className="w-5 h-5" />
+              </button>
+
+              {/* Dots */}
+              <div className="mt-10 flex items-center justify-center gap-2">
+                {photos.map((_, idx) => {
+                  const isActive = idx === selected;
+                  return (
+                    <button
+                      key={idx}
+                      type="button"
+                      onClick={() => api?.scrollTo(idx)}
+                      aria-label={`Mergi la imaginea ${idx + 1}`}
+                      className={`h-1.5 rounded-full transition-all duration-500 ease-out ${
+                        isActive
+                          ? "w-6 bg-primary"
+                          : "w-1.5 bg-primary/25 hover:bg-primary/50"
+                      }`}
+                    />
+                  );
+                })}
+              </div>
             </div>
           )}
         </div>
@@ -147,20 +224,6 @@ const Gallery = () => {
           >
             <X className="w-5 h-5" />
           </button>
-          {photos[openIndex].removable && (
-            <button
-              type="button"
-              onClick={(e) => {
-                e.stopPropagation();
-                removePhoto(photos[openIndex]!.id);
-              }}
-              className="absolute top-5 right-20 inline-flex items-center gap-2 h-11 px-4 rounded-full bg-background/15 hover:bg-destructive/80 text-primary-foreground text-xs transition-colors"
-              aria-label="Șterge imaginea"
-            >
-              <Trash2 className="w-4 h-4" />
-              Șterge
-            </button>
-          )}
           <button
             type="button"
             onClick={(e) => {

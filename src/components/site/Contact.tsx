@@ -37,20 +37,62 @@ export const Contact = () => {
             </p>
 
             <div className="mt-10 space-y-5">
-              <div className="group flex items-center gap-4 p-4 rounded-xl border border-border/60 transition-all duration-500 hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-soft hover:bg-secondary/30">
-                <div className="w-11 h-11 rounded-lg bg-gradient-primary text-primary-foreground flex items-center justify-center transition-transform duration-500 group-hover:scale-105">
+              <div className="group flex items-start gap-4 p-4 rounded-xl border border-border/60 transition-all duration-500 hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-soft hover:bg-secondary/30">
+                <div className="w-11 h-11 shrink-0 rounded-lg bg-gradient-primary text-primary-foreground flex items-center justify-center transition-transform duration-500 group-hover:scale-105">
                   <PhoneCall className="w-4 h-4" strokeWidth={1.75} />
                 </div>
-                <div>
-                  <div className="text-xs uppercase tracking-wider text-muted-foreground">
-                    Telefon
+                <div className="flex-1 min-w-0">
+                  <div className="text-[10px] uppercase tracking-[0.22em] text-accent">
+                    Urgențe & intervenții
+                  </div>
+                  <div className="text-sm font-medium text-primary mt-0.5">
+                    Sună pentru intervenție
                   </div>
                   <PhoneNumber
                     number="0722.307.818"
                     tel="0722307818"
-                    className="font-medium text-primary"
+                    className="block font-serif text-xl text-primary mt-1 tracking-tight"
                   />
                 </div>
+                <Button
+                  asChild
+                  size="sm"
+                  variant="outline"
+                  className="rounded-full self-center hidden sm:inline-flex"
+                >
+                  <a href="tel:0722307818" aria-label="Sună la 0722307818">
+                    Sună acum
+                  </a>
+                </Button>
+              </div>
+
+              <div className="group flex items-start gap-4 p-4 rounded-xl border border-border/60 transition-all duration-500 hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-soft hover:bg-secondary/30">
+                <div className="w-11 h-11 shrink-0 rounded-lg bg-secondary text-primary flex items-center justify-center transition-transform duration-500 group-hover:scale-105">
+                  <PhoneCall className="w-4 h-4" strokeWidth={1.75} />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
+                    Programări consultații
+                  </div>
+                  <div className="text-sm font-medium text-primary mt-0.5">
+                    Sună pentru programare
+                  </div>
+                  <PhoneNumber
+                    number="0721.173.670"
+                    tel="0721173670"
+                    className="block font-serif text-xl text-primary mt-1 tracking-tight"
+                  />
+                </div>
+                <Button
+                  asChild
+                  size="sm"
+                  variant="outline"
+                  className="rounded-full self-center hidden sm:inline-flex"
+                >
+                  <a href="tel:0721173670" aria-label="Sună la 0721173670">
+                    Sună acum
+                  </a>
+                </Button>
               </div>
 
               <div className="group flex items-center gap-4 p-4 rounded-xl border border-border/60 transition-all duration-500 hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-soft hover:bg-secondary/30">

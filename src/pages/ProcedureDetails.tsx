@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { ArrowLeft, ArrowRight, Images, Quote, Sparkles, Scissors, Wind } from "lucide-react";
 import { Navbar } from "@/components/site/Navbar";
 import { Footer } from "@/components/site/Footer";
@@ -186,6 +186,8 @@ const TestimonialCarousel = ({ testimonials }: { testimonials: { text: string; n
 };
 
 const ProcedureDetails = () => {
+  const location = useLocation();
+
   useEffect(() => {
     const prevTitle = document.title;
     const prevDesc = document.querySelector('meta[name="description"]')?.getAttribute("content") ?? "";
@@ -201,6 +203,20 @@ const ProcedureDetails = () => {
       document.querySelector('meta[name="description"]')?.setAttribute("content", prevDesc);
     };
   }, []);
+
+  useEffect(() => {
+    const id = location.hash.replace("#", "");
+    requestAnimationFrame(() => {
+      if (id) {
+        const el = document.getElementById(id);
+        if (el) {
+          el.scrollIntoView({ behavior: "smooth", block: "start" });
+          return;
+        }
+      }
+      window.scrollTo({ top: 0, behavior: "auto" });
+    });
+  }, [location.hash, location.pathname]);
 
   return (
     <main className="min-h-screen bg-background">
@@ -228,7 +244,7 @@ const ProcedureDetails = () => {
         </div>
       </section>
 
-      <section className="py-20 lg:py-28">
+      <section id="proceduri-detaliu" className="py-20 lg:py-28 scroll-mt-24">
         <div className="container max-w-5xl space-y-24">
           {procedures.map((p, i) => {
             const Icon = p.icon;
