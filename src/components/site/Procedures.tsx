@@ -101,7 +101,7 @@ export const Procedures = () => {
         </div>
 
         <div className="relative mt-20 flex flex-col items-center text-center z-10">
-          <Link to="/proceduri" className="group inline-flex items-center gap-2 px-8 h-12 rounded-full bg-primary text-primary-foreground text-sm font-medium shadow-elegant hover:shadow-glow transition-all duration-300">
+          <Link to="/proceduri#proceduri-detaliu" className="group inline-flex items-center gap-2 px-8 h-12 rounded-full bg-primary text-primary-foreground text-sm font-medium shadow-elegant hover:shadow-glow transition-all duration-300">
             Apasă pentru mai mulți clienți fericiți
             <ChevronRight className="w-4 h-4 group-hover:translate-x-0.5" />
           </Link>
