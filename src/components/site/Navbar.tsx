@@ -164,10 +164,18 @@ export const Navbar = () => {
           </Button>
         </div>
 
+        <Button
+          size="sm"
+          onClick={() => goToSection("contact")}
+          className="lg:hidden justify-self-center rounded-full px-4 h-9 text-xs transition-all duration-300 active:scale-95"
+        >
+          Programare
+        </Button>
+
         <button
           aria-label="Meniu"
           aria-expanded={open}
-          className="lg:hidden relative w-10 h-10 flex items-center justify-center text-primary transition-transform duration-300 active:scale-95"
+          className="lg:hidden justify-self-end relative w-10 h-10 flex items-center justify-center text-primary transition-transform duration-300 active:scale-95"
           onClick={() => setOpen((o) => !o)}
         >
           <span className="relative w-6 h-6 block">
