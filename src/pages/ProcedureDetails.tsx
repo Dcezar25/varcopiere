@@ -244,7 +244,7 @@ const ProcedureDetails = () => {
         </div>
       </section>
 
-      <section className="py-20 lg:py-28">
+      <section id="proceduri-detaliu" className="py-20 lg:py-28 scroll-mt-24">
         <div className="container max-w-5xl space-y-24">
           {procedures.map((p, i) => {
             const Icon = p.icon;
