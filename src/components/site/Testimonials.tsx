@@ -140,6 +140,35 @@ export const Testimonials = () => {
             />
           </div>
         </Carousel>
+
+        <div className="mt-20 flex flex-col items-center text-center">
+          <div className="text-xs uppercase tracking-[0.22em] text-primary-glow mb-4">
+            — Părerea ta contează
+          </div>
+          <h3 className="font-serif text-2xl md:text-3xl text-primary-foreground max-w-xl text-balance">
+            Ai fost pacientul nostru? <span className="italic">Lasă o recenzie.</span>
+          </h3>
+          <div className="mt-7 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+            <a
+              href="https://share.google/XWJTgxcAIRYyZugsb"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 px-7 h-12 rounded-full bg-primary-foreground text-primary text-sm font-medium shadow-soft transition-all duration-300 hover:-translate-y-0.5 hover:bg-primary-foreground/90 hover:shadow-elegant"
+            >
+              <span className="font-serif text-base leading-none">G</span>
+              Lasă o recenzie pe Google
+            </a>
+            <a
+              href="https://www.facebook.com/DrChirurgORLMarinVOICA/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 px-7 h-12 rounded-full border border-primary-foreground/25 text-primary-foreground text-sm font-medium transition-all duration-300 hover:-translate-y-0.5 hover:bg-primary-foreground/10 hover:border-primary-foreground/40"
+            >
+              <span className="font-serif text-base leading-none">f</span>
+              Lasă o recenzie pe Facebook
+            </a>
+          </div>
+        </div>
       </div>
     </section>
   );
