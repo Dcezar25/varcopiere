@@ -1,6 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { SOCIAL_LINKS } from "./SocialIcons";
 
 const links = [
   { hash: "despre", label: "Despre" },
@@ -115,6 +123,38 @@ export const Navbar = () => {
         </nav>
 
         <div className="hidden lg:flex items-center gap-3 pl-2">
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <button
+                type="button"
+                className="inline-flex items-center gap-1.5 h-9 px-4 rounded-full text-sm text-foreground/80 hover:text-primary border border-border/60 bg-background/40 backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:shadow-soft hover:border-primary/30"
+              >
+                Socials
+                <ChevronDown className="w-3.5 h-3.5 transition-transform duration-300 data-[state=open]:rotate-180" />
+              </button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent
+              align="end"
+              sideOffset={10}
+              className="min-w-[200px] rounded-xl border-border/60 bg-background/75 backdrop-blur-xl shadow-elegant p-1.5"
+            >
+              {SOCIAL_LINKS.map(({ platform, label, href, Icon }) => (
+                <DropdownMenuItem key={platform} asChild>
+                  <a
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-3 px-3 py-2.5 rounded-lg cursor-pointer text-sm text-foreground/85 hover:text-primary focus:text-primary transition-all duration-300 hover:bg-secondary/60 focus:bg-secondary/60 hover:translate-x-0.5"
+                  >
+                    <span className="w-7 h-7 rounded-md bg-secondary/60 text-primary flex items-center justify-center">
+                      <Icon className="w-3.5 h-3.5" />
+                    </span>
+                    {label}
+                  </a>
+                </DropdownMenuItem>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
           <Button
             size="sm"
             onClick={() => goToSection("contact")}
