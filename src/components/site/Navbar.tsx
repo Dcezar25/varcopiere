@@ -192,7 +192,7 @@ export const Navbar = () => {
 
       <div
         className={`lg:hidden overflow-hidden bg-background/95 backdrop-blur-xl border-b border-border/60 transition-[max-height,opacity] duration-500 ease-out ${
-          open ? "max-h-[480px] opacity-100 border-t" : "max-h-0 opacity-0"
+          open ? "max-h-[560px] opacity-100 border-t" : "max-h-0 opacity-0"
         }`}
       >
         <div className="container py-6 flex flex-col gap-4">
@@ -218,6 +218,25 @@ export const Navbar = () => {
           >
             Programare
           </Button>
+          <div
+            className={`flex items-center gap-3 pt-2 transform transition-all duration-300 ease-out ${
+              open ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0"
+            }`}
+            style={{ transitionDelay: open ? `${80 + (links.length + 1) * 60}ms` : "0ms" }}
+          >
+            {SOCIAL_LINKS.map(({ platform, href, Icon }) => (
+              <a
+                key={platform}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={platform}
+                className="w-10 h-10 rounded-full border border-border/60 text-foreground/70 hover:text-primary hover:border-primary/40 hover:bg-secondary/60 flex items-center justify-center transition-all duration-300"
+              >
+                <Icon className="w-4 h-4" />
+              </a>
+            ))}
+          </div>
         </div>
       </div>
     </header>
