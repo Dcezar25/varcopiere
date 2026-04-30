@@ -95,11 +95,11 @@ export const Navbar = () => {
           : "bg-transparent"
       }`}
     >
-      <div className="container flex items-center justify-between h-20">
+      <div className="container grid grid-cols-3 lg:flex items-center lg:justify-between h-20">
         <a
           href="/"
           onClick={goHome}
-          className="flex items-baseline gap-2 group cursor-pointer"
+          className="flex items-baseline gap-2 group cursor-pointer justify-self-start"
         >
           <span className="font-serif text-2xl font-medium text-primary tracking-tight">
             Dr. Marin Voica
