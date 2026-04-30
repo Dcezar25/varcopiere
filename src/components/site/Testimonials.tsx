@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { Quote } from "lucide-react";
+import { Quote, Star } from "lucide-react";
 import Autoplay from "embla-carousel-autoplay";
 import {
   Carousel,
@@ -11,31 +11,55 @@ import {
 
 const testimonials = [
   {
-    name: "Andreea M.",
-    role: "Pacientă rinoplastie",
-    text: "Rezultatul depășește orice așteptare. Domnul doctor mi-a explicat fiecare etapă, iar recuperarea a fost mult mai ușoară decât credeam.",
+    source: "Google",
+    name: "Nicoleta Dinu",
+    meta: "2 recenzii, acum 2 luni",
+    text: "Am avut o experiență plăcută cu domnul doctor Voica Marin și cu întregul personal!De la prima consultatie până la recuperarea post-operatorie,am simțit ca sunt intr-o grijă medicală profesionistă, atentă și empatica.Rezultatul operației a fost peste așteptări.",
   },
   {
-    name: "Răzvan P.",
-    role: "Septoplastie",
-    text: "După ani de zile în care nu puteam respira normal, totul s-a schimbat. Profesionalism și o echipă caldă, atentă la detalii.",
+    source: "Google",
+    name: "ANGELA-PAULA LIȚĂ",
+    meta: "Acum o saptamana",
+    text: "Acum o saptamana am fost operata de domnul doctor. Am avut o experienta minunata,fiind un profesionist desavarsit. In fiecare zi s-a interesat de starea mea,recuperarea a fost una rapida,iar rezultatele au fost fix asa cum mi-am dorit. Recomand din tot sufletul!",
   },
   {
-    name: "Ioana D.",
-    role: "Rinoseptoplastie",
-    text: "Mi-am dorit un rezultat natural, nu unul artificial. Exact asta am obținut. Recomand cu toată inima Dr. Voica.",
+    source: "Google",
+    name: "Alexandra Ivan",
+    meta: "9 recenzii·4 fotografii, acum 8 luni",
+    text: "Un doctor care stie ce face. Explica si intelege nevoile pacientilor. Daca aveti nevoie de rino,deviatie, cornete (sau alte probleme mai grave) stiti unde sa mergeti! Eu inca nu m-am operat, dar urmeaza :)",
   },
   {
-    name: "Mihai S.",
-    role: "Pacient rinoplastie",
-    text: "Echipa caldă, explicații clare și un rezultat care arată complet natural. Sunt extrem de mulțumit.",
+    source: "Facebook",
+    name: "Nina Petru recomandă Dr. Marin Voica",
+    meta: "14 noiembrie 2024",
+    text: "Un doctor foarte profesionist si dedicat, foarte implicat. Am fost la dansul pentru procedura de reductie a cornetelor nazale( prin radiofrecvență), totul a decurs perfect. Dl doctor a ajutat mult si pe partea de recuperare post- procedura. Ii multumesc pentru tot!",
   },
   {
-    name: "Cristina V.",
-    role: "Septoplastie",
-    text: "Pentru prima dată după ani de zile pot respira normal pe nas. Mulțumesc, domnule doctor!",
+    source: "SfatulMedicului",
+    name: "lucian",
+    meta: "10 ani si 1 luni",
+    text: "In calitate de cadru medical nu pot decat sa subliniez corectitudinea actului medical si interesul domnului doctor pentru pacient. Am facut o rinoseptoplastie care a fost un succes, fara inflamatie postoperatorie sau edem important. Fara sa fiu subiectiv, il recomand pe domnul doctor!",
   },
 ];
+
+const sourceClass = {
+  Google: "bg-background text-primary",
+  SfatulMedicului: "bg-primary-glow/20 text-primary-glow border-primary-glow/25",
+  Facebook: "bg-secondary text-primary border-secondary/60",
+};
+
+const sourceLinks = {
+  Google:
+    "https://www.google.com/search?sca_esv=66e1f1ab6540b637&rlz=1C1BNSD_enRO1083RO1083&sxsrf=ANbL-n6V9BEcRFnBTIZMFU5R8ZUSH7c1hQ:1777478680630&q=Dr.+Marin+VOICA+Recenzii&rflfq=1&num=20&stick=H4sIAAAAAAAAAONgkxI2MzcyNDYyMzI2MDAzMDUyNDIx2sDI-IpRwqVIT8E3sSgzTyHM39PZUSEoNTk1ryozcxErTikAOfjor1AAAAA&rldimm=6721326230060521242&tbm=lcl&hl=ro-RO&sa=X&ved=2ahUKEwim5eqKuJOUAxUNygIHHTwHM3EQ9fQKegQILRAG&biw=1920&bih=945&dpr=1#lkt=LocalPoiReviews",
+  SfatulMedicului: "https://www.sfatulmedicului.ro/medici/dr-marin-voica_25848",
+  Facebook: "https://www.facebook.com/DrChirurgORLMarinVOICA/",
+};
+
+const sourceLabels = {
+  Google: "Google",
+  SfatulMedicului: "Sfatul Medicului",
+  Facebook: "Facebook",
+};
 
 export const Testimonials = () => {
   const autoplay = useRef(
@@ -45,7 +69,7 @@ export const Testimonials = () => {
   return (
     <section
       id="pacienti"
-      className="py-24 lg:py-32 bg-primary text-primary-foreground relative overflow-hidden"
+      className="scroll-reveal py-24 lg:py-32 bg-primary text-primary-foreground relative overflow-hidden"
     >
       <div className="absolute inset-0 opacity-20 -z-0">
         <div className="absolute top-0 left-1/4 w-[500px] h-[500px] rounded-full bg-primary-glow/40 blur-3xl" />
@@ -71,17 +95,35 @@ export const Testimonials = () => {
             {testimonials.map((t) => (
               <CarouselItem
                 key={t.name}
-                className="pl-4 basis-full md:basis-1/2 lg:basis-1/3"
+                className="pl-4 basis-full md:basis-1/2 xl:basis-1/3"
               >
-                <figure className="h-full p-8 rounded-2xl bg-primary-foreground/[0.06] border border-primary-foreground/10 backdrop-blur-sm hover:bg-primary-foreground/[0.09] transition-colors">
+                <figure className="h-full min-h-[420px] p-7 rounded-2xl bg-primary-foreground/[0.06] border border-primary-foreground/10 backdrop-blur-sm hover:bg-primary-foreground/[0.09] hover:-translate-y-1 transition-all duration-500 flex flex-col">
+                  <div className="mb-5 flex items-center justify-between gap-3">
+                    <a
+                      href={sourceLinks[t.source as keyof typeof sourceLinks]}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`Vezi recenziile pe ${sourceLabels[t.source as keyof typeof sourceLabels]}`}
+                      className={`inline-flex items-center gap-1.5 rounded-full border border-primary-foreground/10 px-3 py-1 text-xs font-medium transition-all duration-300 hover:-translate-y-0.5 hover:shadow-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-glow ${sourceClass[t.source as keyof typeof sourceClass]}`}
+                    >
+                      {t.source === "Google" && <span className="font-serif text-sm leading-none">G</span>}
+                      {t.source === "Facebook" && <span className="font-serif text-sm leading-none">f</span>}
+                      {sourceLabels[t.source as keyof typeof sourceLabels]}
+                    </a>
+                    <div className="flex text-primary-glow" aria-label="5 stele">
+                      {Array.from({ length: 5 }).map((_, index) => (
+                        <Star key={index} className="h-3.5 w-3.5 fill-current" />
+                      ))}
+                    </div>
+                  </div>
                   <Quote className="w-7 h-7 text-primary-glow mb-5 opacity-80" />
-                  <blockquote className="text-primary-foreground/90 leading-relaxed text-[15px]">
+                  <blockquote className="text-primary-foreground/90 leading-relaxed text-[15px] flex-1">
                     {t.text}
                   </blockquote>
                   <figcaption className="mt-6 pt-6 border-t border-primary-foreground/10">
                     <div className="font-serif text-lg">{t.name}</div>
                     <div className="text-xs uppercase tracking-wider text-primary-glow/80 mt-1">
-                      {t.role}
+                      {t.meta}
                     </div>
                   </figcaption>
                 </figure>

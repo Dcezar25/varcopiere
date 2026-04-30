@@ -134,4 +134,35 @@ All colors MUST be HSL.
   .shadow-soft { box-shadow: var(--shadow-soft); }
   .shadow-elegant { box-shadow: var(--shadow-elegant); }
   .shadow-glow { box-shadow: var(--shadow-glow); }
+
+  .scroll-reveal {
+    opacity: 0;
+    transform: translateY(22px);
+    animation: reveal-on-scroll linear both;
+    animation-timeline: view();
+    animation-range: entry 8% cover 24%;
+  }
+
+  @keyframes reveal-on-scroll {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @supports not (animation-timeline: view()) {
+    .scroll-reveal {
+      opacity: 1;
+      transform: none;
+      animation: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .scroll-reveal {
+      opacity: 1;
+      transform: none;
+      animation: none;
+    }
+  }
 }

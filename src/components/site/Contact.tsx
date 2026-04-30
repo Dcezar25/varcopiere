@@ -37,8 +37,8 @@ export const Contact = () => {
             </p>
 
             <div className="mt-10 space-y-5">
-              <div className="flex items-center gap-4 p-4 rounded-xl border border-border/60">
-                <div className="w-11 h-11 rounded-lg bg-gradient-primary text-primary-foreground flex items-center justify-center">
+              <div className="group flex items-center gap-4 p-4 rounded-xl border border-border/60 transition-all duration-500 hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-soft hover:bg-secondary/30">
+                <div className="w-11 h-11 rounded-lg bg-gradient-primary text-primary-foreground flex items-center justify-center transition-transform duration-500 group-hover:scale-105">
                   <PhoneCall className="w-4 h-4" strokeWidth={1.75} />
                 </div>
                 <div>
@@ -53,8 +53,8 @@ export const Contact = () => {
                 </div>
               </div>
 
-              <div className="flex items-center gap-4 p-4 rounded-xl border border-border/60">
-                <div className="w-11 h-11 rounded-lg bg-secondary text-primary flex items-center justify-center">
+              <div className="group flex items-center gap-4 p-4 rounded-xl border border-border/60 transition-all duration-500 hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-soft hover:bg-secondary/30">
+                <div className="w-11 h-11 rounded-lg bg-secondary text-primary flex items-center justify-center transition-transform duration-500 group-hover:scale-105">
                   <CalendarClock className="w-4 h-4" strokeWidth={1.75} />
                 </div>
                 <div>

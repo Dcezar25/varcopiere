@@ -1,18 +1,59 @@
 import { useEffect, useRef, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 
 const links = [
-  { href: "#despre", label: "Despre" },
-  { href: "#proceduri", label: "Proceduri" },
-  { href: "#experienta", label: "Experiență" },
-  { href: "#pacienti", label: "Pacienți" },
-  { href: "#contact", label: "Contact" },
+  { hash: "despre", label: "Despre" },
+  { hash: "experienta", label: "Experiență" },
+  { hash: "proceduri", label: "Proceduri" },
+  { hash: "pacienti", label: "Pacienți" },
+  { hash: "contact", label: "Contact" },
 ];
 
 export const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const openScrollY = useRef<number | null>(null);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const goToSection = (hash: string) => {
+    setOpen(false);
+    if (location.pathname === "/") {
+      const el = document.getElementById(hash);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", block: "start" });
+        history.replaceState(null, "", `#${hash}`);
+      }
+    } else {
+      navigate(`/#${hash}`);
+    }
+  };
+
+  const goHome = (e: React.MouseEvent) => {
+    e.preventDefault();
+    setOpen(false);
+    if (location.pathname === "/") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else {
+      navigate("/");
+      requestAnimationFrame(() => {
+        window.scrollTo({ top: 0, behavior: "auto" });
+      });
+    }
+  };
+
+  // When landing on "/" with a hash (after navigating from another page), scroll to it.
+  useEffect(() => {
+    if (location.pathname === "/" && location.hash) {
+      const id = location.hash.replace("#", "");
+      // Wait for layout
+      requestAnimationFrame(() => {
+        const el = document.getElementById(id);
+        if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    }
+  }, [location.pathname, location.hash]);
 
   useEffect(() => {
     const onScroll = () => {
@@ -47,7 +88,11 @@ export const Navbar = () => {
       }`}
     >
       <div className="container flex items-center justify-between h-20">
-        <a href="#top" className="flex items-baseline gap-2 group">
+        <a
+          href="/"
+          onClick={goHome}
+          className="flex items-baseline gap-2 group cursor-pointer"
+        >
           <span className="font-serif text-2xl font-medium text-primary tracking-tight">
             Dr. Marin Voica
           </span>
@@ -56,28 +101,33 @@ export const Navbar = () => {
           </span>
         </a>
 
-        <nav className="hidden md:flex items-center gap-8">
+        <nav className="hidden lg:flex items-center gap-6 xl:gap-8">
           {links.map((l) => (
-            <a
-              key={l.href}
-              href={l.href}
-              className="text-sm text-foreground/75 hover:text-primary transition-colors"
+            <button
+              type="button"
+              key={l.hash}
+              onClick={() => goToSection(l.hash)}
+              className="text-sm text-foreground/75 hover:text-primary transition-all duration-300 hover:-translate-y-0.5"
             >
               {l.label}
-            </a>
+            </button>
           ))}
         </nav>
 
-        <div className="hidden md:flex items-center gap-3">
-          <Button asChild size="sm" className="rounded-full px-5">
-            <a href="#contact">Programare</a>
+        <div className="hidden lg:flex items-center gap-3 pl-2">
+          <Button
+            size="sm"
+            onClick={() => goToSection("contact")}
+            className="rounded-full px-5 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-soft"
+          >
+            Programare
           </Button>
         </div>
 
         <button
           aria-label="Meniu"
           aria-expanded={open}
-          className="md:hidden relative w-10 h-10 flex items-center justify-center text-primary"
+          className="lg:hidden relative w-10 h-10 flex items-center justify-center text-primary transition-transform duration-300 active:scale-95"
           onClick={() => setOpen((o) => !o)}
         >
           <span className="relative w-6 h-6 block">
@@ -101,32 +151,32 @@ export const Navbar = () => {
       </div>
 
       <div
-        className={`md:hidden overflow-hidden bg-background/95 backdrop-blur-xl border-b border-border/60 transition-[max-height,opacity] duration-500 ease-out ${
+        className={`lg:hidden overflow-hidden bg-background/95 backdrop-blur-xl border-b border-border/60 transition-[max-height,opacity] duration-500 ease-out ${
           open ? "max-h-[480px] opacity-100 border-t" : "max-h-0 opacity-0"
         }`}
       >
         <div className="container py-6 flex flex-col gap-4">
           {links.map((l, i) => (
-            <a
-              key={l.href}
-              href={l.href}
-              onClick={() => setOpen(false)}
+            <button
+              type="button"
+              key={l.hash}
+              onClick={() => goToSection(l.hash)}
               style={{ transitionDelay: open ? `${80 + i * 60}ms` : "0ms" }}
-              className={`text-base text-foreground/80 hover:text-primary transform transition-all duration-300 ease-out ${
+              className={`text-base text-left text-foreground/80 hover:text-primary transform transition-all duration-300 ease-out ${
                 open ? "translate-x-0 opacity-100" : "-translate-x-4 opacity-0"
               }`}
             >
               {l.label}
-            </a>
+            </button>
           ))}
           <Button
-            asChild
+            onClick={() => goToSection("contact")}
             className={`rounded-full mt-2 transform transition-all duration-300 ease-out ${
               open ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0"
             }`}
             style={{ transitionDelay: open ? `${80 + links.length * 60}ms` : "0ms" }}
           >
-            <a href="#contact" onClick={() => setOpen(false)}>Programare</a>
+            Programare
           </Button>
         </div>
       </div>
