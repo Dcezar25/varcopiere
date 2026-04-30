@@ -32,10 +32,6 @@ const Gallery = () => {
   const [selected, setSelected] = useState(0);
 
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "auto" });
-  }, []);
-
-  useEffect(() => {
     const prevTitle = document.title;
     const prevDesc =
       document.querySelector('meta[name="description"]')?.getAttribute("content") ?? "";
