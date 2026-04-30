@@ -186,6 +186,8 @@ const TestimonialCarousel = ({ testimonials }: { testimonials: { text: string; n
 };
 
 const ProcedureDetails = () => {
+  const location = useLocation();
+
   useEffect(() => {
     const prevTitle = document.title;
     const prevDesc = document.querySelector('meta[name="description"]')?.getAttribute("content") ?? "";
@@ -201,6 +203,20 @@ const ProcedureDetails = () => {
       document.querySelector('meta[name="description"]')?.setAttribute("content", prevDesc);
     };
   }, []);
+
+  useEffect(() => {
+    const id = location.hash.replace("#", "");
+    requestAnimationFrame(() => {
+      if (id) {
+        const el = document.getElementById(id);
+        if (el) {
+          el.scrollIntoView({ behavior: "smooth", block: "start" });
+          return;
+        }
+      }
+      window.scrollTo({ top: 0, behavior: "auto" });
+    });
+  }, [location.hash, location.pathname]);
 
   return (
     <main className="min-h-screen bg-background">
