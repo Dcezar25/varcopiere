@@ -9,8 +9,9 @@ import {
   CarouselItem,
   type CarouselApi,
 } from "@/components/ui/carousel";
-import beforeImg from "@/assets/before-after-before.jpg";
-import afterImg from "@/assets/before-after-after.jpg";
+import galerie1 from "@/assets/galerie/pacient1.png";
+import galerie2 from "@/assets/galerie/pacient2.png";
+import galerie3 from "@/assets/galerie/pacient3.png";
 
 type Photo = {
   id: string;
@@ -18,12 +19,12 @@ type Photo = {
   alt: string;
 };
 
-const seedSources = [beforeImg, afterImg];
-const initialPhotos: Photo[] = Array.from({ length: 16 }, (_, i) => ({
-  id: `seed-${i}`,
-  src: seedSources[i % seedSources.length],
-  alt: `Rezultat pacient ${i + 1}`,
-}));
+const initialPhotos: Photo[] = [
+  { id: "1", src: galerie1, alt: "Rezultat pacient 1 — Rinoplastie" },
+  { id: "2", src: galerie2, alt: "Rezultat pacient 2 — Rinoseptoplastie" },
+  { id: "3", src: galerie3, alt: "Rezultat pacient 3 — Rinoplastie" },
+  // adaugă câte vrei
+];
 
 const Gallery = () => {
   const [photos] = useState<Photo[]>(initialPhotos);
@@ -133,11 +134,10 @@ const Gallery = () => {
                           type="button"
                           onClick={() => setOpenIndex(idx)}
                           aria-label={`Deschide imaginea ${idx + 1}`}
-                          className={`group relative block w-full overflow-hidden rounded-2xl border border-border/60 bg-card shadow-soft transition-all duration-500 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${
-                            isActive
-                              ? "scale-100 opacity-100 shadow-elegant"
-                              : "scale-95 opacity-60"
-                          }`}
+                          className={`group relative block w-full overflow-hidden rounded-2xl border border-border/60 bg-card shadow-soft transition-all duration-500 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${isActive
+                            ? "scale-100 opacity-100 shadow-elegant"
+                            : "scale-95 opacity-60"
+                            }`}
                         >
                           <div className="aspect-[4/5] w-full overflow-hidden">
                             <img
@@ -191,11 +191,10 @@ const Gallery = () => {
                       type="button"
                       onClick={() => api?.scrollTo(idx)}
                       aria-label={`Mergi la imaginea ${idx + 1}`}
-                      className={`h-1.5 rounded-full transition-all duration-500 ease-out ${
-                        isActive
-                          ? "w-6 bg-primary"
-                          : "w-1.5 bg-primary/25 hover:bg-primary/50"
-                      }`}
+                      className={`h-1.5 rounded-full transition-all duration-500 ease-out ${isActive
+                        ? "w-6 bg-primary"
+                        : "w-1.5 bg-primary/25 hover:bg-primary/50"
+                        }`}
                     />
                   );
                 })}

@@ -5,8 +5,12 @@ import { Navbar } from "@/components/site/Navbar";
 import { Footer } from "@/components/site/Footer";
 import { Button } from "@/components/ui/button";
 import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from "@/components/ui/carousel";
-import beforeImg from "@/assets/before-after-before.jpg";
-import afterImg from "@/assets/before-after-after.jpg";
+import pacient1Inainte from "@/assets/pacient1-inainte.png";
+import pacient1Dupa from "@/assets/pacient1-dupa.png";
+import pacient2Inainte from "@/assets/pacient2-inainte.png";
+import pacient2Dupa from "@/assets/pacient2-dupa.png";
+import pacient3Inainte from "@/assets/pacient3-inainte.png";
+import pacient3Dupa from "@/assets/pacient3-dupa.png";
 
 type Procedure = {
   icon: typeof Sparkles;
@@ -70,9 +74,9 @@ const procedures: Procedure[] = [
 ];
 
 const galleryPairs = [
-  { before: beforeImg, after: afterImg },
-  { before: beforeImg, after: afterImg },
-  { before: beforeImg, after: afterImg },
+  { before: pacient1Inainte, after: pacient1Dupa },
+  { before: pacient2Inainte, after: pacient2Dupa },
+  { before: pacient3Inainte, after: pacient3Dupa },
 ];
 
 const BeforeAfterGallery = ({ title }: { title: string }) => {
