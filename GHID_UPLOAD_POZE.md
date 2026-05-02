@@ -91,61 +91,40 @@ import noseIllustration from "@/assets/poza-noua.jpg";
 ### Ce afișează
 Un carusel cu perechi de poze "Înainte" și "După", vizibil pe paginile **Rinoplastie** și **Rinoseptoplastie**.
 
-### Fișierul de modificat
+### Fișierul responsabil
 ```
 src/pages/ProcedureDetails.tsx
 ```
 
-### Cum funcționează acum
-Pozele sunt organizate în **perechi** (înainte + după). Există un array numit `galleryPairs` în jurul liniei 72:
+### Cum funcționează acum (AUTOMAT)
+Nu mai este nevoie să scrii importuri manuale! Sistemul citește **automat** toate pozele dintr-un folder specific, atâta timp cât respecți o regulă simplă de denumire.
 
-```tsx
-const galleryPairs = [
-  { before: beforeImg, after: afterImg },  // Perechea 1
-  { before: beforeImg, after: afterImg },  // Perechea 2
-  { before: beforeImg, after: afterImg },  // Perechea 3
-];
-```
+Am creat două foldere noi:
+1. `src/assets/proceduri/rinoplastie/`
+2. `src/assets/proceduri/rinoseptoplastie/`
 
 ### Cum adaugi sau înlocuiești pozele
 
-**Pasul 1** — Pune pozele noi în `src/assets/`. Denumește-le sugestiv, de exemplu:
-```
-src/assets/pacient1-inainte.jpg
-src/assets/pacient1-dupa.jpg
-src/assets/pacient2-inainte.jpg
-src/assets/pacient2-dupa.jpg
-```
+**Pasul 1** — Adaugă pozele în folderul corespunzător procedurii (`rinoplastie` sau `rinoseptoplastie`).
 
-**Pasul 2** — Deschide `ProcedureDetails.tsx` și importă pozele noi în partea de sus (după liniile 8–9):
-```tsx
-// Liniile existente:
-import beforeImg from "@/assets/before-after-before.jpg";
-import afterImg from "@/assets/before-after-after.jpg";
+**Pasul 2** — **Denumește fișierele corect!** Aceasta este singura regulă. Fișierele trebuie să se termine obligatoriu în `-inainte` și `-dupa`. Pentru a se împerechea corect, folosește numere (sau nume scurte) la început:
 
-// Adaugă importurile tale:
-import pacient1Inainte from "@/assets/pacient1-inainte.jpg";
-import pacient1Dupa from "@/assets/pacient1-dupa.jpg";
-import pacient2Inainte from "@/assets/pacient2-inainte.jpg";
-import pacient2Dupa from "@/assets/pacient2-dupa.jpg";
+Exemplu de conținut în `src/assets/proceduri/rinoplastie/`:
+```
+01-inainte.png
+01-dupa.png
+02-inainte.png
+02-dupa.png
+pacient-ana-inainte.png
+pacient-ana-dupa.png
 ```
 
-**Pasul 3** — Modifică array-ul `galleryPairs` (~linia 72) cu pozele tale:
-```tsx
-const galleryPairs = [
-  { before: pacient1Inainte, after: pacient1Dupa },
-  { before: pacient2Inainte, after: pacient2Dupa },
-  // Poți adăuga câte perechi vrei:
-  // { before: pacient3Inainte, after: pacient3Dupa },
-];
-```
-
-> 💡 Fiecare intrare în `galleryPairs` reprezintă **o pereche** de înainte/după. Poți adăuga sau elimina oricâte perechi dorești.
+> 💡 **GATA!** Nu trebuie să modifici nicio linie de cod. Doar pui pozele în folder cu aceste sufixe, iar ele vor apărea automat pe site, ordonate alfabetic. Poți pune oricâte perechi dorești. Extensii suportate automat: `.png`, `.jpg`, `.jpeg`, `.webp`.
 
 ### Dimensiuni recomandate
-- **Format:** JPG sau WebP
+- **Format:** JPG, PNG sau WebP
 - **Dimensiune:** minim 600×800 px (proporție 3:4, portret)
-- **Sfat:** Pozele dintr-o pereche ar trebui să aibă dimensiuni identice pentru aliniere perfectă
+- **Sfat:** Pozele dintr-o pereche ar trebui să aibă dimensiuni identice pentru aliniere perfectă. Folosește `01`, `02`, `03`... în loc de `1`, `2`, `10` dacă ai mai mult de 9 poze, pentru a asigura ordonarea alfabetică corectă.
 
 ---
 

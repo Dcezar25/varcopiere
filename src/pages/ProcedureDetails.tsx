@@ -5,12 +5,33 @@ import { Navbar } from "@/components/site/Navbar";
 import { Footer } from "@/components/site/Footer";
 import { Button } from "@/components/ui/button";
 import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from "@/components/ui/carousel";
-import pacient1Inainte from "@/assets/pacient1-inainte.png";
-import pacient1Dupa from "@/assets/pacient1-dupa.png";
-import pacient2Inainte from "@/assets/pacient2-inainte.png";
-import pacient2Dupa from "@/assets/pacient2-dupa.png";
-import pacient3Inainte from "@/assets/pacient3-inainte.png";
-import pacient3Dupa from "@/assets/pacient3-dupa.png";
+// Importăm automat toate pozele din foldere folosind Vite glob
+const rinoBeforeGlob = import.meta.glob<{ default: string }>('@/assets/proceduri/rinoplastie/*-inainte.*', { eager: true });
+const rinoAfterGlob = import.meta.glob<{ default: string }>('@/assets/proceduri/rinoplastie/*-dupa.*', { eager: true });
+
+const rinoSeptoBeforeGlob = import.meta.glob<{ default: string }>('@/assets/proceduri/rinoseptoplastie/*-inainte.*', { eager: true });
+const rinoSeptoAfterGlob = import.meta.glob<{ default: string }>('@/assets/proceduri/rinoseptoplastie/*-dupa.*', { eager: true });
+
+// Funcție care transformă obiectele returnate de Vite în liste de perechi
+function buildGalleryPairs(beforeGlob: Record<string, { default: string }>, afterGlob: Record<string, { default: string }>): { before: string; after: string }[] {
+  const pairs: { before: string; after: string }[] = [];
+  const beforePaths = Object.keys(beforeGlob).sort();
+  const afterPaths = Object.keys(afterGlob).sort();
+  
+  const minLength = Math.min(beforePaths.length, afterPaths.length);
+  for (let i = 0; i < minLength; i++) {
+    pairs.push({
+      before: beforeGlob[beforePaths[i]].default,
+      after: afterGlob[afterPaths[i]].default,
+    });
+  }
+  return pairs;
+}
+
+const rinoplastiePairs = buildGalleryPairs(rinoBeforeGlob, rinoAfterGlob);
+const rinoseptoplastiePairs = buildGalleryPairs(rinoSeptoBeforeGlob, rinoSeptoAfterGlob);
+
+type GalleryPair = { before: string; after: string };
 
 type Procedure = {
   icon: typeof Sparkles;
@@ -18,6 +39,7 @@ type Procedure = {
   slug: string;
   description: string;
   showGallery?: boolean;
+  galleryPairs?: GalleryPair[];
   testimonial: { text: string; name: string };
   testimonials?: { text: string; name: string }[];
 };
@@ -29,6 +51,8 @@ const procedures: Procedure[] = [
     slug: "rinoplastie",
     description:
       "Rinoplastia remodelează piramida nazală pentru un aspect echilibrat și natural, în armonie cu trăsăturile feței. Intervenția este planificată în detaliu, cu accent pe proporții, profil și expresivitate.",
+    // ── Pozele pentru Rinoplastie ──────────────────────────────────────────
+    galleryPairs: rinoplastiePairs,
     testimonial: {
       text: "Rezultatul depășește orice așteptare. Domnul doctor mi-a explicat fiecare etapă, iar recuperarea a fost mult mai ușoară decât credeam.",
       name: "Andreea M.",
@@ -40,6 +64,8 @@ const procedures: Procedure[] = [
     slug: "rinoseptoplastie",
     description:
       "Combină chirurgia estetică cu cea funcțională — corectează simultan forma nasului și deviația de sept, pentru o respirație optimă și un rezultat estetic armonios.",
+    // ── Pozele pentru Rinoseptoplastie ────────────────────────────────────
+    galleryPairs: rinoseptoplastiePairs,
     testimonial: {
       text: "Mi-am dorit un rezultat natural, nu unul artificial. Exact asta am obținut. Recomand cu toată inima Dr. Voica.",
       name: "Ioana D.",
@@ -73,16 +99,10 @@ const procedures: Procedure[] = [
   },
 ];
 
-const galleryPairs = [
-  { before: pacient1Inainte, after: pacient1Dupa },
-  { before: pacient2Inainte, after: pacient2Dupa },
-  { before: pacient3Inainte, after: pacient3Dupa },
-];
-
-const BeforeAfterGallery = ({ title }: { title: string }) => {
+const BeforeAfterGallery = ({ title, pairs }: { title: string; pairs: GalleryPair[] }) => {
   const [api, setApi] = useState<CarouselApi>();
   const [selected, setSelected] = useState(0);
-  const slides = galleryPairs.flatMap((pair, index) => [
+  const slides = pairs.flatMap((pair, index) => [
     { src: pair.before, alt: `${title} — înainte ${index + 1}` },
     { src: pair.after, alt: `${title} — după ${index + 1}` },
   ]);
@@ -282,9 +302,9 @@ const ProcedureDetails = () => {
                   )}
                 </div>
 
-                {p.showGallery !== false && (
+                {p.showGallery !== false && p.galleryPairs && (
                   <div className={i % 2 === 1 ? "lg:order-1" : ""}>
-                    <BeforeAfterGallery title={p.title} />
+                    <BeforeAfterGallery title={p.title} pairs={p.galleryPairs} />
                   </div>
                 )}
                 {p.showGallery === false && p.testimonials && (
