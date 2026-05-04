@@ -247,7 +247,7 @@ const ProcedureDetails = () => {
       <Navbar />
 
       <section className="pt-32 pb-16 lg:pt-40 lg:pb-20 bg-gradient-hero">
-        <div className="container max-w-5xl">
+        <div className="container max-w-5xl reveal-apple-soft">
           <Link
             to="/"
             className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors mb-8"
