@@ -233,4 +233,17 @@ All colors MUST be HSL.
       animation: none;
     }
   }
+
+  /* On small screens, blocks can be taller than the viewport, which makes the
+     scroll-linked exit phase hide content while it's still visible. Use a
+     gentler entry-only reveal on mobile to keep everything readable. */
+  @media (max-width: 1023px) {
+    .reveal-apple,
+    .reveal-apple-soft {
+      animation: reveal-on-scroll linear both;
+      animation-timeline: view();
+      animation-range: entry 5% cover 25%;
+      filter: none;
+    }
+  }
 }
