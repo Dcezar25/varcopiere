@@ -130,7 +130,7 @@ const BeforeAfterGallery = ({ title, pairs }: { title: string; pairs: GalleryPai
   }, [api]);
 
   return (
-    <div>
+    <div className="w-full min-w-0">
       <div className="text-xs uppercase tracking-[0.2em] text-accent mb-4">
         — Înainte și după
       </div>
@@ -179,7 +179,7 @@ const TestimonialCarousel = ({ testimonials }: { testimonials: { text: string; n
   }, [api]);
 
   return (
-    <div className="lg:self-center">
+    <div className="lg:self-center w-full min-w-0">
       <Carousel setApi={setApi} opts={{ align: "start", containScroll: "trimSnaps" }}>
         <CarouselContent>
           {testimonials.map((testimonial) => (
@@ -303,12 +303,14 @@ const ProcedureDetails = () => {
                 </div>
 
                 {p.showGallery !== false && p.galleryPairs && (
-                  <div className={i % 2 === 1 ? "lg:order-1" : ""}>
+                  <div className={`w-full min-w-0 ${i % 2 === 1 ? "lg:order-1" : ""}`}>
                     <BeforeAfterGallery title={p.title} pairs={p.galleryPairs} />
                   </div>
                 )}
                 {p.showGallery === false && p.testimonials && (
-                  <TestimonialCarousel testimonials={p.testimonials} />
+                  <div className={`w-full min-w-0 ${i % 2 === 1 ? "lg:order-1" : ""}`}>
+                    <TestimonialCarousel testimonials={p.testimonials} />
+                  </div>
                 )}
               </article>
             );
