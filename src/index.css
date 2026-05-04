@@ -165,4 +165,72 @@ All colors MUST be HSL.
       animation: none;
     }
   }
+
+  /* Apple-style scroll-linked reveal: appears on enter, disappears on exit */
+  .reveal-apple {
+    animation: reveal-apple-pass linear both;
+    animation-timeline: view();
+    animation-range: cover 0% cover 100%;
+    will-change: opacity, transform, filter;
+  }
+
+  .reveal-apple-soft {
+    animation: reveal-apple-soft-pass linear both;
+    animation-timeline: view();
+    animation-range: cover 0% cover 100%;
+    will-change: opacity, transform;
+  }
+
+  @keyframes reveal-apple-pass {
+    0% {
+      opacity: 0;
+      transform: translateY(40px) scale(0.96);
+      filter: blur(10px);
+    }
+    22%, 78% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      filter: blur(0);
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(-28px) scale(0.98);
+      filter: blur(8px);
+    }
+  }
+
+  @keyframes reveal-apple-soft-pass {
+    0% {
+      opacity: 0;
+      transform: translateY(24px);
+    }
+    25%, 75% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(-18px);
+    }
+  }
+
+  @supports not (animation-timeline: view()) {
+    .reveal-apple,
+    .reveal-apple-soft {
+      opacity: 1;
+      transform: none;
+      filter: none;
+      animation: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal-apple,
+    .reveal-apple-soft {
+      opacity: 1;
+      transform: none;
+      filter: none;
+      animation: none;
+    }
+  }
 }
