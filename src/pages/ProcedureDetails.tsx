@@ -315,7 +315,7 @@ const ProcedureDetails = () => {
           })}
 
           {/* CTA — full photo gallery */}
-          <div className="flex flex-col items-center text-center pt-4">
+          <div className="reveal-apple-soft flex flex-col items-center text-center pt-4">
             <div className="text-xs uppercase tracking-[0.22em] text-accent mb-4">
               — Mai multe rezultate
             </div>
