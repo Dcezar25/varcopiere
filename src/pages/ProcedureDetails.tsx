@@ -276,7 +276,7 @@ const ProcedureDetails = () => {
               <article
                 key={p.title}
                 id={p.slug}
-                className="grid lg:grid-cols-2 gap-12 items-start"
+                className="reveal-apple grid lg:grid-cols-2 gap-12 items-start"
               >
                 <div className={i % 2 === 1 ? "lg:order-2" : ""}>
                   <div className="w-12 h-12 rounded-xl bg-gradient-primary text-primary-foreground flex items-center justify-center mb-6 shadow-soft">
