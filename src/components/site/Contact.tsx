@@ -12,16 +12,13 @@ export const Contact = () => {
     <section id="contact" className="py-24 lg:py-32 bg-background">
       <div className="container">
         <div className="rounded-[2rem] overflow-hidden shadow-elegant border border-border/60 grid lg:grid-cols-2">
-          <div className="relative min-h-[400px]">
+          <div className="relative min-h-[320px] lg:min-h-full bg-gradient-to-b from-slate-50 to-slate-300">
             <img
               src={clinic}
               alt="Cabinet ORL"
-              width={1280}
-              height={1600}
               loading="lazy"
-              className="absolute inset-0 w-full h-full object-cover"
+              className="absolute inset-0 w-full h-full object-contain p-6 lg:p-10"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-primary/60 via-primary/10 to-transparent" />
           </div>
 
           <div className="p-10 lg:p-14 bg-card">
