@@ -12,12 +12,12 @@ export const Contact = () => {
     <section id="contact" className="py-24 lg:py-32 bg-background">
       <div className="container">
         <div className="rounded-[2rem] overflow-hidden shadow-elegant border border-border/60 grid lg:grid-cols-2">
-          <div className="relative min-h-[320px] lg:min-h-full bg-gradient-to-b from-slate-50 to-slate-300">
+          <div className="relative flex items-center justify-center min-h-[320px] lg:min-h-full bg-gradient-to-b from-white to-secondary/30 p-8 lg:p-16">
             <img
               src={clinic}
               alt="Cabinet ORL"
               loading="lazy"
-              className="absolute inset-0 w-full h-full object-contain p-6 lg:p-10"
+              className="w-full max-h-[400px] lg:max-h-[500px] object-contain mix-blend-multiply transition-transform duration-700 hover:scale-[1.03]"
             />
           </div>
 
