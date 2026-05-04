@@ -138,58 +138,32 @@ Un carusel mare cu toate pozele pacienților, accesibil la adresa `/galerie`. Fi
 src/pages/Gallery.tsx
 ```
 
-### Cum funcționează acum
-La liniile 12–26, galeria generează automat 16 poziții folosind alternativ `beforeImg` și `afterImg`:
+### Cum funcționează acum (AUTOMAT)
+La fel ca la secțiunea de proceduri, galeria afișează acum **automat** toate pozele dintr-un folder. Nu mai este nevoie să modifici codul!
 
-```tsx
-import beforeImg from "@/assets/before-after-before.jpg";
-import afterImg from "@/assets/before-after-after.jpg";
-
-const seedSources = [beforeImg, afterImg];
-const initialPhotos: Photo[] = Array.from({ length: 16 }, (_, i) => ({
-  id: `seed-${i}`,
-  src: seedSources[i % seedSources.length],
-  alt: `Rezultat pacient ${i + 1}`,
-}));
+Sistemul citește pozele din folderul:
+```
+src/assets/galerie/
 ```
 
 ### Cum adaugi pozele tale reale
 
-**Pasul 1** — Pune toate pozele în `src/assets/`, de exemplu:
+**Pasul 1** — Adaugă pozele pacienților direct în folderul `src/assets/galerie/`.
+> ⚠️ Dacă folderul `galerie/` nu există, trebuie să-l creezi tu în `src/assets/`.
+
+Exemplu de conținut:
 ```
-src/assets/galerie/pacient1.jpg
-src/assets/galerie/pacient2.jpg
-src/assets/galerie/pacient3.jpg
-...
-```
-> ⚠️ Folderul `galerie/` nu există implicit — trebuie să-l creezi tu în `src/assets/`.
-
-**Pasul 2** — Deschide `Gallery.tsx` și înlocuiește importurile și definiția `initialPhotos` (liniile 12–26):
-
-```tsx
-// Șterge sau comentează acestea:
-// import beforeImg from "@/assets/before-after-before.jpg";
-// import afterImg from "@/assets/before-after-after.jpg";
-
-// Importă pozele tale:
-import galerie1 from "@/assets/galerie/pacient1.jpg";
-import galerie2 from "@/assets/galerie/pacient2.jpg";
-import galerie3 from "@/assets/galerie/pacient3.jpg";
-// ... câte poze ai
-
-// Înlocuiește initialPhotos cu lista ta:
-const initialPhotos: Photo[] = [
-  { id: "1", src: galerie1, alt: "Rezultat pacient 1 — Rinoplastie" },
-  { id: "2", src: galerie2, alt: "Rezultat pacient 2 — Rinoseptoplastie" },
-  { id: "3", src: galerie3, alt: "Rezultat pacient 3 — Rinoplastie" },
-  // adaugă câte vrei
-];
+pacient-1-rinoplastie.jpg
+pacient-2.png
+03-rinoseptoplastie.webp
 ```
 
-**Pasul 3** — Șterge și variabilele care nu mai sunt folosite (`seedSources` și codul `Array.from`).
+**Pasul 2** — Numește fișierele descriptiv, deoarece textul din numele fișierului va fi folosit automat de site pentru accesibilitate/SEO (ex: `pacient-ana-rinoplastie.jpg` devine "Rezultat Pacient Ana Rinoplastie").
+
+> 💡 **GATA!** Orice poză pui în acest folder va apărea imediat și automat în Galerie.
 
 ### Dimensiuni recomandate
-- **Format:** JPG sau WebP
+- **Format:** JPG, PNG sau WebP
 - **Dimensiune:** minim 800×1000 px (proporție 4:5)
 - **Calitate:** pozele se deschid în fullscreen, deci calitate cât mai bună
 
@@ -201,14 +175,14 @@ const initialPhotos: Photo[] = [
 |------|-----------------|------------------------------|
 | Poza doctor (Hero) | `src/components/site/Hero.tsx` | `import doctor from ...` |
 | Ilustrație "Despre doctor" | `src/components/site/About.tsx` | `import noseIllustration from ...` |
-| Poze Înainte/După (Proceduri) | `src/pages/ProcedureDetails.tsx` | array `galleryPairs` |
-| Galerie foto completă | `src/pages/Gallery.tsx` | array `initialPhotos` |
+| Poze Înainte/După (Proceduri) | - | Doar pui pozele în folder |
+| Galerie foto completă | - | Doar pui pozele în folder |
 
 ---
 
 ## Note importante
 
-- **Toate pozele sunt importate din cod** — nu e suficient să le pui în folder, trebuie și să le legi în codul `.tsx` corespunzător.
+- **Toate pozele din Hero și About trebuie importate din cod** — nu e suficient să le pui în folder, trebuie și să le legi în codul `.tsx` corespunzător. (Cele din proceduri și galerie se iau automat).
 - **Extensii acceptate:** `.jpg`, `.jpeg`, `.png`, `.webp` — toate funcționează cu Vite.
 - **Optimizare:** Folosește WebP pentru fișiere mai mici și încărcare mai rapidă.
 - **Consimțământ pacienți:** Asigură-te că ai acordul pacienților înainte de a publica pozele.

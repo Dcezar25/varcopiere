@@ -9,22 +9,29 @@ import {
   CarouselItem,
   type CarouselApi,
 } from "@/components/ui/carousel";
-import galerie1 from "@/assets/galerie/pacient1.png";
-import galerie2 from "@/assets/galerie/pacient2.png";
-import galerie3 from "@/assets/galerie/pacient3.png";
-
 type Photo = {
   id: string;
   src: string;
   alt: string;
 };
 
-const initialPhotos: Photo[] = [
-  { id: "1", src: galerie1, alt: "Rezultat pacient 1 — Rinoplastie" },
-  { id: "2", src: galerie2, alt: "Rezultat pacient 2 — Rinoseptoplastie" },
-  { id: "3", src: galerie3, alt: "Rezultat pacient 3 — Rinoplastie" },
-  // adaugă câte vrei
-];
+// Importăm automat toate pozele din folderul galerie folosind Vite glob
+const galleryGlob = import.meta.glob<{ default: string }>('@/assets/galerie/*.*', { eager: true });
+
+const initialPhotos: Photo[] = Object.keys(galleryGlob)
+  .sort()
+  .map((path, index) => {
+    // Extragem numele fișierului pentru a-l folosi ca alt text
+    const fileName = path.split('/').pop()?.split('.')[0] || `pacient-${index + 1}`;
+    // Înlocuim cratimele și underscore-urile cu spații și capitalizăm
+    const formattedName = fileName.replace(/[-_]/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+
+    return {
+      id: `gallery-${index}`,
+      src: galleryGlob[path].default,
+      alt: `Rezultat ${formattedName}`,
+    };
+  });
 
 const Gallery = () => {
   const [photos] = useState<Photo[]>(initialPhotos);
