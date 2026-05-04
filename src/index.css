@@ -184,18 +184,30 @@ All colors MUST be HSL.
   @keyframes reveal-apple-pass {
     0% {
       opacity: 0;
-      transform: translateY(40px) scale(0.96);
-      filter: blur(10px);
+      transform: translate3d(-18px, -180px, 0) rotate(-8deg) scale(0.92);
+      filter: blur(2px);
     }
-    22%, 78% {
+    18% {
       opacity: 1;
-      transform: translateY(0) scale(1);
+      transform: translate3d(-6px, -40px, 0) rotate(-3deg) scale(0.97);
+      filter: blur(0);
+    }
+    26% {
+      /* Snap / impact */
+      transform: translate3d(0, 6px, 0) rotate(0.6deg) scale(1.03);
+    }
+    32% {
+      transform: translate3d(0, -3px, 0) rotate(-0.3deg) scale(0.99);
+    }
+    38%, 74% {
+      opacity: 1;
+      transform: translate3d(0, 0, 0) rotate(0) scale(1);
       filter: blur(0);
     }
     100% {
       opacity: 0;
-      transform: translateY(-28px) scale(0.98);
-      filter: blur(8px);
+      transform: translate3d(14px, -120px, 0) rotate(6deg) scale(0.94);
+      filter: blur(2px);
     }
   }
 
