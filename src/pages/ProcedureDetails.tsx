@@ -247,7 +247,7 @@ const ProcedureDetails = () => {
       <Navbar />
 
       <section className="pt-32 pb-16 lg:pt-40 lg:pb-20 bg-gradient-hero">
-        <div className="container max-w-5xl">
+        <div className="container max-w-5xl reveal-apple-soft">
           <Link
             to="/"
             className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors mb-8"
@@ -276,7 +276,7 @@ const ProcedureDetails = () => {
               <article
                 key={p.title}
                 id={p.slug}
-                className="grid lg:grid-cols-2 gap-12 items-start"
+                className="reveal-apple grid lg:grid-cols-2 gap-12 items-start"
               >
                 <div className={i % 2 === 1 ? "lg:order-2" : ""}>
                   <div className="w-12 h-12 rounded-xl bg-gradient-primary text-primary-foreground flex items-center justify-center mb-6 shadow-soft">
@@ -315,7 +315,7 @@ const ProcedureDetails = () => {
           })}
 
           {/* CTA — full photo gallery */}
-          <div className="flex flex-col items-center text-center pt-4">
+          <div className="reveal-apple-soft flex flex-col items-center text-center pt-4">
             <div className="text-xs uppercase tracking-[0.22em] text-accent mb-4">
               — Mai multe rezultate
             </div>
