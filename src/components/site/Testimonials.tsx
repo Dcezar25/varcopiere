@@ -1,5 +1,5 @@
-import { useRef } from "react";
-import { Quote, Star } from "lucide-react";
+import { useRef, useState } from "react";
+import { Quote, Star, ChevronDown } from "lucide-react";
 import Autoplay from "embla-carousel-autoplay";
 import {
   Carousel,
@@ -8,8 +8,25 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from "@/components/ui/dialog";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
-const testimonials = [
+type Testimonial = {
+  source: "Google" | "Facebook" | "SfatulMedicului";
+  name: string;
+  meta: string;
+  text: string;
+  rating?: number;
+  response?: string;
+};
+
+const testimonials: Testimonial[] = [
   {
     source: "Google",
     name: "Nicoleta Dinu",
@@ -40,6 +57,15 @@ const testimonials = [
     meta: "10 ani si 1 luni",
     text: "In calitate de cadru medical nu pot decat sa subliniez corectitudinea actului medical si interesul domnului doctor pentru pacient. Am facut o rinoseptoplastie care a fost un succes, fara inflamatie postoperatorie sau edem important. Fara sa fiu subiectiv, il recomand pe domnul doctor!",
   },
+  {
+    source: "Google",
+    name: "Natalia Andreea Neicu",
+    meta: "4 recenzii·2 fotografii, modificat acum 5 ani",
+    rating: 1,
+    text: "Nu recomand! Operatia de septoplastie si micsorarea cornetelor nazale au avut un impact negativ major asupra vietii si respiratiei mele, in urma carora am survenit complicatii.",
+    response:
+      "Sunt siderat de acest comentariu răutăcios si inexact. În primul rand, operatia de deviatie de sept se face prin interiorul nasului. Prima incizie din tehnica operatorie se face la 3-4 cm de orificiul nazal fara nici o legatura cu columela (porțiunea de tesut moale dintre nări la care vă referiți). Pentru ca sunteti din Craiova, v-am avertizat că vindecarea cauterizarii cornetelor nazale se face lent și poate dura pana la 3-4 săptămâni, motiv pentru care trebuie sa veniti periodic la control in Bucuresti de cate ori vă recomand. D-voastră nu ati respectat termenii înțelegerii și nu ati venit in mod regulat la consult si tratamentul local nazal, motiv pt care ati facut postoperator ceea ce se numește sinechie nazala (o punte de tesut intre septul nazal si cornetul nazal), sinechie pe care v-am rezolvat-o la nivel de cabinet. Apoi m-ati anunțat că plecati din țară și nu știți cand o sa reveniți, dar eu v-am reavertizat ca trebuie sa veniti la tratament după intervenția pt sinechie, ceea ce nu ati luat in considerare. De atunci, de aproape 2 ani nu ati mai luat legătura cu mine, decat prin aceasta defaimatoare postare. În acest răstimp ati considerat sa faceti alte proceduri medicale fara sa ne consultam.\n\nÎn concluzie, operatiile facute de mine nu au nici o legatura cu deficitul estetic pe care-l reclamati sau cu problemele vegetative de care suferiti. Dupa mai bine de 2 ani imi reprosati public aceste complicatii? De ce nu ati facut-o in primele luni de zile? Eu vă sfătuiesc să reveniți la realitatea faptelor că sunteti manata de alte duplicități?! Altfel va pot acționa în instanță pentru defăimare. Sau mergeți D-voastră și reclamați pretinsul prejudiciu de sănătate! Va pun la dispoziție documentele medicale justificatoare.\n\nDar e mai usor sa invinuiesti medicul fara ca tu sa-ti asumi vreo vina. Nerespectarea indicațiilor medicului pot prejudicia un act medical corect efectuat. Aviz și altor pacienți care cred ca daca s-au operat, nu mai este nevoie de control medical. La controalele medicale indicate se vine de cate ori solicită medicul, pana la vindecarea deplină. Actul medical este ca un contract/parteneriat in care fiecare, atat medicul cat și pacientul trebuie sa-și faca treaba!",
+  },
 ];
 
 const sourceClass = {
@@ -65,6 +91,7 @@ export const Testimonials = () => {
   const autoplay = useRef(
     Autoplay({ delay: 5000, stopOnInteraction: false, stopOnMouseEnter: true })
   );
+  const [openResponse, setOpenResponse] = useState<Testimonial | null>(null);
 
   return (
     <section
@@ -92,43 +119,59 @@ export const Testimonials = () => {
           className="w-full"
         >
           <CarouselContent className="-ml-4">
-            {testimonials.map((t) => (
-              <CarouselItem
-                key={t.name}
-                className="pl-4 basis-full md:basis-1/2 xl:basis-1/3"
-              >
-                <figure className="h-full min-h-[420px] p-7 rounded-2xl bg-primary-foreground/[0.06] border border-primary-foreground/10 backdrop-blur-sm hover:bg-primary-foreground/[0.09] hover:-translate-y-1 transition-all duration-500 flex flex-col">
-                  <div className="mb-5 flex items-center justify-between gap-3">
-                    <a
-                      href={sourceLinks[t.source as keyof typeof sourceLinks]}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label={`Vezi recenziile pe ${sourceLabels[t.source as keyof typeof sourceLabels]}`}
-                      className={`inline-flex items-center gap-1.5 rounded-full border border-primary-foreground/10 px-3 py-1 text-xs font-medium transition-all duration-300 hover:-translate-y-0.5 hover:shadow-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-glow ${sourceClass[t.source as keyof typeof sourceClass]}`}
-                    >
-                      {t.source === "Google" && <span className="font-serif text-sm leading-none">G</span>}
-                      {t.source === "Facebook" && <span className="font-serif text-sm leading-none">f</span>}
-                      {sourceLabels[t.source as keyof typeof sourceLabels]}
-                    </a>
-                    <div className="flex text-primary-glow" aria-label="5 stele">
-                      {Array.from({ length: 5 }).map((_, index) => (
-                        <Star key={index} className="h-3.5 w-3.5 fill-current" />
-                      ))}
+            {testimonials.map((t) => {
+              const stars = t.rating ?? 5;
+              return (
+                <CarouselItem
+                  key={t.name}
+                  className="pl-4 basis-full md:basis-1/2 xl:basis-1/3"
+                >
+                  <figure className="h-full min-h-[420px] p-7 rounded-2xl bg-primary-foreground/[0.06] border border-primary-foreground/10 backdrop-blur-sm hover:bg-primary-foreground/[0.09] hover:-translate-y-1 transition-all duration-500 flex flex-col">
+                    <div className="mb-5 flex items-center justify-between gap-3">
+                      <a
+                        href={sourceLinks[t.source]}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={`Vezi recenziile pe ${sourceLabels[t.source]}`}
+                        className={`inline-flex items-center gap-1.5 rounded-full border border-primary-foreground/10 px-3 py-1 text-xs font-medium transition-all duration-300 hover:-translate-y-0.5 hover:shadow-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-glow ${sourceClass[t.source]}`}
+                      >
+                        {t.source === "Google" && <span className="font-serif text-sm leading-none">G</span>}
+                        {t.source === "Facebook" && <span className="font-serif text-sm leading-none">f</span>}
+                        {sourceLabels[t.source]}
+                      </a>
+                      <div className="flex text-primary-glow" aria-label={`${stars} stele`}>
+                        {Array.from({ length: 5 }).map((_, index) => (
+                          <Star
+                            key={index}
+                            className={`h-3.5 w-3.5 ${index < stars ? "fill-current" : "opacity-30"}`}
+                          />
+                        ))}
+                      </div>
                     </div>
-                  </div>
-                  <Quote className="w-7 h-7 text-primary-glow mb-5 opacity-80" />
-                  <blockquote className="text-primary-foreground/90 leading-relaxed text-[15px] flex-1">
-                    {t.text}
-                  </blockquote>
-                  <figcaption className="mt-6 pt-6 border-t border-primary-foreground/10">
-                    <div className="font-serif text-lg">{t.name}</div>
-                    <div className="text-xs uppercase tracking-wider text-primary-glow/80 mt-1">
-                      {t.meta}
-                    </div>
-                  </figcaption>
-                </figure>
-              </CarouselItem>
-            ))}
+                    <Quote className="w-7 h-7 text-primary-glow mb-5 opacity-80" />
+                    <blockquote className="text-primary-foreground/90 leading-relaxed text-[15px] flex-1">
+                      {t.text}
+                    </blockquote>
+                    <figcaption className="mt-6 pt-6 border-t border-primary-foreground/10">
+                      <div className="font-serif text-lg">{t.name}</div>
+                      <div className="text-xs uppercase tracking-wider text-primary-glow/80 mt-1">
+                        {t.meta}
+                      </div>
+                    </figcaption>
+                    {t.response && (
+                      <button
+                        type="button"
+                        onClick={() => setOpenResponse(t)}
+                        className="mt-5 group inline-flex items-center justify-between gap-2 px-4 py-2.5 rounded-xl bg-primary-foreground/[0.08] border border-primary-foreground/15 text-xs font-medium text-primary-foreground/90 transition-all duration-300 hover:bg-primary-foreground/[0.12] hover:border-primary-foreground/25 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-glow"
+                      >
+                        <span className="tracking-wide">Citește răspunsul medicului</span>
+                        <ChevronDown className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-y-0.5" />
+                      </button>
+                    )}
+                  </figure>
+                </CarouselItem>
+              );
+            })}
           </CarouselContent>
 
           <div className="mt-10 flex items-center justify-center gap-3">
@@ -170,6 +213,29 @@ export const Testimonials = () => {
           </div>
         </div>
       </div>
+
+      <Dialog open={!!openResponse} onOpenChange={(o) => !o && setOpenResponse(null)}>
+        <DialogContent className="max-w-2xl p-0 gap-0 border-primary/10 bg-background/95 backdrop-blur-xl shadow-elegant overflow-hidden rounded-2xl">
+          <DialogHeader className="px-8 pt-8 pb-5 border-b border-border/60">
+            <div className="text-[10px] uppercase tracking-[0.22em] text-primary/70 mb-2">
+              Răspunsul medicului
+            </div>
+            <DialogTitle className="font-serif text-2xl text-foreground leading-tight">
+              Dr. Marin Voica răspunde
+            </DialogTitle>
+            {openResponse && (
+              <DialogDescription className="text-xs text-muted-foreground pt-1">
+                Către recenzia <span className="italic">{openResponse.name}</span> · {openResponse.meta}
+              </DialogDescription>
+            )}
+          </DialogHeader>
+          <ScrollArea className="max-h-[60vh] px-8 py-6">
+            <div className="space-y-4 text-[15px] leading-relaxed text-foreground/85 whitespace-pre-line pr-4">
+              {openResponse?.response}
+            </div>
+          </ScrollArea>
+        </DialogContent>
+      </Dialog>
     </section>
   );
 };
