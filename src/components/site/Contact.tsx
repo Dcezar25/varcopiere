@@ -43,7 +43,7 @@ export const Contact = () => {
                     Urgențe & intervenții
                   </div>
                   <div className="text-sm font-medium text-primary mt-0.5">
-                    Sună pentru intervenție
+                    Sună pentru operație
                   </div>
                   <PhoneNumber
                     number="0722.307.818"
@@ -72,7 +72,7 @@ export const Contact = () => {
                     Programări consultații
                   </div>
                   <div className="text-sm font-medium text-primary mt-0.5">
-                    Sună pentru programare
+                    Sună Hipomed Care Chiajna
                   </div>
                   <PhoneNumber
                     number="0721.173.670"
