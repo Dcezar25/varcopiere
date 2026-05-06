@@ -62,7 +62,8 @@ const testimonials: Testimonial[] = [
     name: "Natalia Andreea Neicu",
     meta: "4 recenzii·2 fotografii, modificat acum 5 ani",
     rating: 1,
-    text: "Nu recomand! Operatia de septoplastie si micsorarea cornetelor nazale au avut un impact negativ major asupra vietii si respiratiei mele, in urma carora am survenit complicatii.",
+    text:
+      "Nu recomand! Operatia de septoplastie si micsorarea cornetelor nazale au avut un impact negativ major asupra vietii si respiratiei mele, in urma carora am survenit complicatii.\n\nAm fost nevoita sa sterg aproate tot comentariul precedent, ca sa pot raspunde la ce mi-ati scris. Realitatea este mult prea complexa pentru a putea fi relatata in totalitate aici. Sunt multe urme de neadevar in raspunsul dumneavoastra. M-am tinut intru totul de recomandarile primite. Cand am fost nevoita sa plec din tara, am plecat doar dupa ce am primit acordul dumneavostra avizat. Eu am venit la control regulat, conform instructiunilor si nu am prejudiciat actul medical dupa cum sustineti. Nu a fost nicio clipa problema ca sunt din alt oras, din moment ce oricum aveam o locuinta stabila si in Bucuresti. Dupa cateva saptamani a aparut sinechia (eram deja plecata din tara si mi-am asumat sa ma intorc in Romania pentru a remedia situatia). Am observat ca nu ma simt bine si am revenit in tara la control la dumneavostra cu un RMN efectuat inainte, in urma caruia ati depistat sinechia. Aceasta este tempistica corecta a realitatii. Recunosc ca mi-ati tratat sinechia atunci. Am inteles ca este o complicatie normala si am venit la tratament pana cand s-a rezolvat. Dar problemele de respiratie au persistat dupa aceea, fara corelatie cu sinechia deja vindecata. Poate nu va amintiti, dar la ceva timp dupa vindecare (trecusera cateva luni) am revenit la control si in ciuda faptului ca am acuzat disconfort (fara corelatie cu sinechia deja rezolvata), ati spus ca este totul in regula. De aceea nu v-am mai cerut parerea pentru o eventuala interventie (ca sa intelegeti de ce nu am mai luat legatura cu dumneavoastra; nu pentru ca nu am vrut, ci pentru ca mi-ati spus ca sunt bine) si am apelat la alti medici din domeniu. Iar deficitul estetic este 100% creat in urma operatiei cu dumneavoatra, si stiti asta foarte bine, la fel cum ati stiut si la momentul respectiv. Mi-ati prescris unguentul pentru plagi Biotitus Derma, dar tesutul nu s-a refacut (inca detin reteta cu parafa dumneavoastra; daca nu era o problema, nu mi-ati fi prescris unguentul, daca tot vorbim de documentatie justificatoare; am poze datate care arata clar cicatricea dupa operatie, asa ca nu inteleg cum pretindeti ca as avea cicatricea din alte parti; nu am actionat legal din motive de care sunt convinsa ca sunteti constient, cum ar fi ca sistemul malpraxis este total defectuos si partinitor in Romania, cu putin respect pentru pacient si suferinta lui, cu o desfasurare a cazului de ani de zile). Operatia a fost efectuata prin metoda inchisa si am inteles foarte clar ca nu va exista o incizie a columelei. Deficitul estetic s-a produs cand ati legat mesele si s-a agravat cand v-a cazut putin nitrat de argint pe columela in urma interventiei pentru sinechie (inteleg ca este delicat sa lucrati poate cu el). A doua mea interventie la un alt medic nu are corelatie cu cicatricea, deoarece a fost o cauterizare cu radiofrecventa pentru a rezolva disconfortul din nara dreapta pe care il tot acuzam si cu dumneavoastra, simtind efectiv cam ese ceva blocat acolo. Inteleg ca sunteti deranjat, dar nu este tocmai placut sa simti timp de aproape 2 ani un “obiect strain” cand respiri. Este decizia mea sa imi fac publica experienta acum, cand sunt pregatita, in deplinatatea unei realitati. Nu sunt singura paciena care v-a scris un review dupa ani de zile. Este doar experienta mea si nu o generalizare; sunt convinsa ca nu se intampla cu toti pacientii, cum sunt convinsa si ca majoritatea sunt multumiti de dumneavoastra. De aceea nu am intentia sa sune ca o defaimare, ci ca un caz izolat. Inteleg ca sunteti siderat, dar trebuie sa intelegeti ca si eu m-am ales cu un complex estetic, greu de rezolvat, pe care nimeni nu si l-ar dori. Sincer este departe de mine dorinta de a crea o polologhie si un conflict de o mare amploare, doar ca si eu sunt om si am suferit si sufar din motivele mentionate mai sus. Din moment ce percepeti situatia ca o defaimare, comentariul meu poate fi eliminat.",
     response:
       "Sunt siderat de acest comentariu răutăcios si inexact. În primul rand, operatia de deviatie de sept se face prin interiorul nasului. Prima incizie din tehnica operatorie se face la 3-4 cm de orificiul nazal fara nici o legatura cu columela (porțiunea de tesut moale dintre nări la care vă referiți). Pentru ca sunteti din Craiova, v-am avertizat că vindecarea cauterizarii cornetelor nazale se face lent și poate dura pana la 3-4 săptămâni, motiv pentru care trebuie sa veniti periodic la control in Bucuresti de cate ori vă recomand. D-voastră nu ati respectat termenii înțelegerii și nu ati venit in mod regulat la consult si tratamentul local nazal, motiv pt care ati facut postoperator ceea ce se numește sinechie nazala (o punte de tesut intre septul nazal si cornetul nazal), sinechie pe care v-am rezolvat-o la nivel de cabinet. Apoi m-ati anunțat că plecati din țară și nu știți cand o sa reveniți, dar eu v-am reavertizat ca trebuie sa veniti la tratament după intervenția pt sinechie, ceea ce nu ati luat in considerare. De atunci, de aproape 2 ani nu ati mai luat legătura cu mine, decat prin aceasta defaimatoare postare. În acest răstimp ati considerat sa faceti alte proceduri medicale fara sa ne consultam.\n\nÎn concluzie, operatiile facute de mine nu au nici o legatura cu deficitul estetic pe care-l reclamati sau cu problemele vegetative de care suferiti. Dupa mai bine de 2 ani imi reprosati public aceste complicatii? De ce nu ati facut-o in primele luni de zile? Eu vă sfătuiesc să reveniți la realitatea faptelor că sunteti manata de alte duplicități?! Altfel va pot acționa în instanță pentru defăimare. Sau mergeți D-voastră și reclamați pretinsul prejudiciu de sănătate! Va pun la dispoziție documentele medicale justificatoare.\n\nDar e mai usor sa invinuiesti medicul fara ca tu sa-ti asumi vreo vina. Nerespectarea indicațiilor medicului pot prejudicia un act medical corect efectuat. Aviz și altor pacienți care cred ca daca s-au operat, nu mai este nevoie de control medical. La controalele medicale indicate se vine de cate ori solicită medicul, pana la vindecarea deplină. Actul medical este ca un contract/parteneriat in care fiecare, atat medicul cat și pacientul trebuie sa-și faca treaba!",
   },
@@ -92,6 +93,8 @@ export const Testimonials = () => {
     Autoplay({ delay: 5000, stopOnInteraction: false, stopOnMouseEnter: true })
   );
   const [openResponse, setOpenResponse] = useState<Testimonial | null>(null);
+  const [openReview, setOpenReview] = useState<Testimonial | null>(null);
+  const TRUNCATE_LIMIT = 280;
 
   return (
     <section
@@ -149,9 +152,21 @@ export const Testimonials = () => {
                       </div>
                     </div>
                     <Quote className="w-7 h-7 text-primary-glow mb-5 opacity-80" />
-                    <blockquote className="text-primary-foreground/90 leading-relaxed text-[15px] flex-1">
-                      {t.text}
+                    <blockquote className="text-primary-foreground/90 leading-relaxed text-[15px] flex-1 whitespace-pre-line">
+                      {t.text.length > TRUNCATE_LIMIT
+                        ? `${t.text.slice(0, TRUNCATE_LIMIT).trimEnd()}…`
+                        : t.text}
                     </blockquote>
+                    {t.text.length > TRUNCATE_LIMIT && (
+                      <button
+                        type="button"
+                        onClick={() => setOpenReview(t)}
+                        className="mt-4 self-start inline-flex items-center gap-1.5 text-xs font-medium tracking-wide text-primary-glow transition-all duration-300 hover:gap-2.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-glow rounded-sm"
+                      >
+                        Citește tot reviewul
+                        <span aria-hidden className="transition-transform duration-300">→</span>
+                      </button>
+                    )}
                     <figcaption className="mt-6 pt-6 border-t border-primary-foreground/10">
                       <div className="font-serif text-lg">{t.name}</div>
                       <div className="text-xs uppercase tracking-wider text-primary-glow/80 mt-1">
@@ -232,6 +247,29 @@ export const Testimonials = () => {
           <ScrollArea className="max-h-[60vh] px-8 py-6">
             <div className="space-y-4 text-[15px] leading-relaxed text-foreground/85 whitespace-pre-line pr-4">
               {openResponse?.response}
+            </div>
+          </ScrollArea>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={!!openReview} onOpenChange={(o) => !o && setOpenReview(null)}>
+        <DialogContent className="max-w-2xl p-0 gap-0 border-primary/10 bg-background/95 backdrop-blur-xl shadow-elegant overflow-hidden rounded-2xl">
+          <DialogHeader className="px-8 pt-8 pb-5 border-b border-border/60">
+            <div className="text-[10px] uppercase tracking-[0.22em] text-primary/70 mb-2">
+              Recenzie completă
+            </div>
+            <DialogTitle className="font-serif text-2xl text-foreground leading-tight">
+              {openReview?.name}
+            </DialogTitle>
+            {openReview && (
+              <DialogDescription className="text-xs text-muted-foreground pt-1">
+                {openReview.source} · {openReview.meta}
+              </DialogDescription>
+            )}
+          </DialogHeader>
+          <ScrollArea className="max-h-[60vh] px-8 py-6">
+            <div className="space-y-4 text-[15px] leading-relaxed text-foreground/85 whitespace-pre-line pr-4">
+              {openReview?.text}
             </div>
           </ScrollArea>
         </DialogContent>
