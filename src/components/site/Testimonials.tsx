@@ -152,9 +152,21 @@ export const Testimonials = () => {
                       </div>
                     </div>
                     <Quote className="w-7 h-7 text-primary-glow mb-5 opacity-80" />
-                    <blockquote className="text-primary-foreground/90 leading-relaxed text-[15px] flex-1">
-                      {t.text}
+                    <blockquote className="text-primary-foreground/90 leading-relaxed text-[15px] flex-1 whitespace-pre-line">
+                      {t.text.length > TRUNCATE_LIMIT
+                        ? `${t.text.slice(0, TRUNCATE_LIMIT).trimEnd()}…`
+                        : t.text}
                     </blockquote>
+                    {t.text.length > TRUNCATE_LIMIT && (
+                      <button
+                        type="button"
+                        onClick={() => setOpenReview(t)}
+                        className="mt-4 self-start inline-flex items-center gap-1.5 text-xs font-medium tracking-wide text-primary-glow transition-all duration-300 hover:gap-2.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-glow rounded-sm"
+                      >
+                        Citește tot reviewul
+                        <span aria-hidden className="transition-transform duration-300">→</span>
+                      </button>
+                    )}
                     <figcaption className="mt-6 pt-6 border-t border-primary-foreground/10">
                       <div className="font-serif text-lg">{t.name}</div>
                       <div className="text-xs uppercase tracking-wider text-primary-glow/80 mt-1">
