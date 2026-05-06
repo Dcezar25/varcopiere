@@ -19,7 +19,7 @@ export const Hero = () => {
 
           <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl leading-[1.02] text-primary text-balance">
             Chirurgie ORL <br />
-            <span className="italic gradient-text">Redarea armoniei </span>naturale.
+            <span className="italic gradient-text pr-[0.15em]">Redarea armoniei</span> naturale.
           </h1>
 
           <p className="mt-8 text-lg md:text-xl text-muted-foreground max-w-xl leading-relaxed">
