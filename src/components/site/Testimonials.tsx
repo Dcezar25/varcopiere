@@ -251,6 +251,29 @@ export const Testimonials = () => {
           </ScrollArea>
         </DialogContent>
       </Dialog>
+
+      <Dialog open={!!openReview} onOpenChange={(o) => !o && setOpenReview(null)}>
+        <DialogContent className="max-w-2xl p-0 gap-0 border-primary/10 bg-background/95 backdrop-blur-xl shadow-elegant overflow-hidden rounded-2xl">
+          <DialogHeader className="px-8 pt-8 pb-5 border-b border-border/60">
+            <div className="text-[10px] uppercase tracking-[0.22em] text-primary/70 mb-2">
+              Recenzie completă
+            </div>
+            <DialogTitle className="font-serif text-2xl text-foreground leading-tight">
+              {openReview?.name}
+            </DialogTitle>
+            {openReview && (
+              <DialogDescription className="text-xs text-muted-foreground pt-1">
+                {openReview.source} · {openReview.meta}
+              </DialogDescription>
+            )}
+          </DialogHeader>
+          <ScrollArea className="max-h-[60vh] px-8 py-6">
+            <div className="space-y-4 text-[15px] leading-relaxed text-foreground/85 whitespace-pre-line pr-4">
+              {openReview?.text}
+            </div>
+          </ScrollArea>
+        </DialogContent>
+      </Dialog>
     </section>
   );
 };
