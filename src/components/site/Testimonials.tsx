@@ -129,7 +129,7 @@ export const Testimonials = () => {
                   key={t.name}
                   className="pl-4 basis-full md:basis-1/2 xl:basis-1/3"
                 >
-                  <figure className="h-full min-h-[420px] p-7 rounded-2xl bg-primary-foreground/[0.06] border border-primary-foreground/10 backdrop-blur-sm hover:bg-primary-foreground/[0.09] hover:-translate-y-1 transition-all duration-500 flex flex-col">
+                  <figure className="h-full p-6 rounded-2xl bg-primary-foreground/[0.06] border border-primary-foreground/10 backdrop-blur-sm hover:bg-primary-foreground/[0.09] hover:-translate-y-1 transition-all duration-500 flex flex-col">
                     <div className="mb-5 flex items-center justify-between gap-3">
                       <a
                         href={sourceLinks[t.source]}
