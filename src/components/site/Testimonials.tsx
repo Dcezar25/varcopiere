@@ -93,6 +93,8 @@ export const Testimonials = () => {
     Autoplay({ delay: 5000, stopOnInteraction: false, stopOnMouseEnter: true })
   );
   const [openResponse, setOpenResponse] = useState<Testimonial | null>(null);
+  const [openReview, setOpenReview] = useState<Testimonial | null>(null);
+  const TRUNCATE_LIMIT = 280;
 
   return (
     <section
